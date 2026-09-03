@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Recursos complementarios | Ruta de Aprendizaje</title>
+	<style>
+		:root { --azul:#17324d; --azul-claro:#eaf3f8; --turquesa:#35b8b0; --amarillo:#f5c451; --coral:#e9826d; --texto:#263746; --borde:#d8e4e9; }
+		* { box-sizing:border-box; }
+		body { margin:0; background:#f4f7f9; color:var(--texto); font-family:Arial,Helvetica,sans-serif; line-height:1.45; }
+		.contenedor { width:100%; max-width:840px; margin:0 auto; padding:18px 10px 28px; }
+		.cabecera { padding:22px 24px; border-radius:14px; background:var(--azul); color:#fff; box-shadow:0 8px 24px rgba(23,50,77,.18); }
+		.etiqueta { display:inline-block; margin-bottom:8px; padding:5px 12px; border-radius:50px; background:var(--amarillo); color:var(--azul); font-size:.7rem; font-weight:bold; text-transform:uppercase; }
+		h1 { margin:0 0 8px; font-size:clamp(1.6rem,4vw,2.35rem); line-height:1.1; }
+		.cabecera p { max-width:680px; margin:0; color:var(--azul-claro); }
+		.contenido { margin-top:18px; }
+		.barra-superior { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:10px; }
+		h2 { margin:0; color:var(--azul); font-size:1.25rem; }
+		.contador { color:#5e6b75; font-size:.8rem; }
+		.lista { display:grid; gap:8px; }
+		.recurso { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:13px; padding:13px 15px; border:1px solid var(--borde); border-left:4px solid var(--turquesa); border-radius:9px; background:#fff; box-shadow:0 4px 14px rgba(23,50,77,.07); }
+		.recurso:nth-child(2) { border-left-color:var(--amarillo); }
+		.recurso:nth-child(3) { border-left-color:var(--coral); }
+		.recurso:nth-child(4) { border-left-color:var(--azul); }
+		.nombre { min-width:0; }
+		.nombre strong { display:block; overflow-wrap:anywhere; color:var(--azul); font-size:.94rem; }
+		.nombre span { display:block; margin-top:2px; color:#687681; font-size:.78rem; }
+		.descargar { display:inline-flex; align-items:center; justify-content:center; min-width:104px; padding:9px 12px; border-radius:7px; background:var(--turquesa); color:#fff; font-size:.8rem; font-weight:bold; text-decoration:none; }
+		.descargar:hover, .descargar:focus-visible { background:#258e89; outline:3px solid rgba(53,184,176,.3); outline-offset:2px; }
+		@media (max-width:560px) {
+			.contenedor { padding:10px 8px 22px; }
+			.cabecera { padding:18px 16px; }
+			.contenido { margin-top:14px; }
+			.barra-superior { display:block; }
+			.contador { display:block; margin-top:3px; }
+			.recurso { grid-template-columns:1fr; gap:10px; padding:11px; }
+			.descargar { width:100%; }
+		}
+	</style>
+</head>
+<body>
+	<main class="contenedor">
+		<header class="cabecera">
+			<span class="etiqueta">Material de apoyo</span>
+			<h1>Recursos complementarios</h1>
+			<p>Accede a los archivos de la ruta formativa de salud mental y descarga el material que necesites para tu trabajo.</p>
+		</header>
+
+		<section class="contenido" aria-labelledby="titulo-recursos">
+			<div class="barra-superior">
+				<h2 id="titulo-recursos">Archivos disponibles</h2>
+				<span class="contador">4 recursos</span>
+			</div>
+
+			<div class="lista">
+				<article class="recurso">
+					<div class="nombre"><strong>Guía general de la ruta formativa</strong><span>Documento de la ruta formativa</span></div>
+					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Ruta%20Formativa.pdf" download>Descargar</a>
+				</article>
+				<article class="recurso">
+					<div class="nombre"><strong>Presentación editable de la ruta</strong><span>Presentación editable</span></div>
+					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Ruta%20Formativa.pptx" download>Descargar</a>
+				</article>
+				<article class="recurso">
+					<div class="nombre"><strong>Mapa visual de salud mental</strong><span>Vista general de la ruta</span></div>
+					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Ruta_formativa_de_salud_mental.png" download>Descargar</a>
+				</article>
+				<article class="recurso">
+					<div class="nombre"><strong>Presentación de apoyo Mineduc</strong><span>Material institucional de apoyo</span></div>
+					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/ruta_formativa_salud_mental_mineduc.pptx" download>Descargar</a>
+				</article>
+			</div>
+		</section>
+	</main>
+</body>
+</html>
