@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción | Ruta de Aprendizaje</title>
+    <style>
+        :root {
+            --azul: #17324d;
+            --azul-claro: #eaf3f8;
+            --turquesa: #35b8b0;
+            --amarillo: #f5c451;
+            --texto: #263746;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7f9;
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.45;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 12px 10px 16px;
+        }
+
+        .introduccion {
+            display: block;
+        }
+
+        .cabecera {
+            padding: 20px 22px;
+            border-radius: 16px;
+            background: var(--azul);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(23, 50, 77, 0.18);
+        }
+
+        .etiqueta {
+            display: inline-block;
+            margin-bottom: 8px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            background: var(--amarillo);
+            color: var(--azul);
+            font-size: 0.72rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: clamp(1.65rem, 4vw, 2.35rem);
+            line-height: 1.1;
+        }
+
+        .cabecera p {
+            margin: 0;
+            color: var(--azul-claro);
+        }
+
+        .proposito {
+            margin-top: 14px;
+            padding: 20px 22px;
+            border-left: 4px solid var(--turquesa);
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 5px 18px rgba(23, 50, 77, 0.08);
+        }
+
+        .proposito h2 {
+            margin: 0 0 10px;
+            color: var(--azul);
+            font-size: 1.25rem;
+        }
+
+        .proposito p {
+            margin: 0;
+        }
+
+        @media (max-width: 700px) {
+            .contenedor {
+                padding: 8px 8px 12px;
+            }
+
+            .proposito {
+                margin-top: 10px;
+                padding: 16px 17px;
+            }
+
+            .cabecera {
+                padding: 18px 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="contenedor">
+        <div class="introduccion">
+            <header class="cabecera">
+                <span class="etiqueta">Ruta de aprendizaje</span>
+                <h1>Salud mental y prevención del suicidio en comunidades educativas</h1>
+                <p>Fortalecer las capacidades de los equipos regionales y provinciales para acompañar a los establecimientos educacionales en el despliegue de una estrategia integral de prevención del suicidio y cuidado de la salud mental.</p>
+            </header>
+
+            <section class="proposito" aria-labelledby="titulo-proposito">
+                <h2 id="titulo-proposito">Propósito del curso</h2>
+                <p>El curso busca que estos equipos técnico-pedagógicos puedan orientar a las comunidades educativas en la promoción de un clima escolar protector, la detección oportuna y el manejo adecuado de señales de alerta o conducta suicida, así como fortalecer la coordinación intersectorial para brindar apoyo oportuno frente a eventos críticos.</p>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
