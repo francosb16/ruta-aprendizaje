@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta de Aprendizaje | Salud Mental</title>
+    <style>
+        :root { --azul:#17324d; --azul-claro:#eaf3f8; --turquesa:#35b8b0; --amarillo:#f5c451; --texto:#263746; }
+        * { box-sizing:border-box; }
+        body { margin:0; background:#f4f7f9; color:var(--texto); font-family:Arial,Helvetica,sans-serif; line-height:1.45; overflow-x:hidden; }
+        .contenedor { width:100%; max-width:1000px; margin:0 auto; padding:8px 10px 12px; }
+        .cabecera, .proposito { max-width:840px; margin:0 auto; }
+        .introduccion { display:grid; grid-template-columns:1.12fr .88fr; gap:10px; max-width:840px; margin:0 auto; align-items:stretch; }
+        .cabecera { padding:16px 20px; border-radius:14px; background:var(--azul); color:#fff; box-shadow:0 8px 24px rgba(23,50,77,.18); }
+        .etiqueta { display:inline-block; margin-bottom:6px; padding:4px 10px; border-radius:50px; background:var(--amarillo); color:var(--azul); font-size:.68rem; font-weight:bold; text-transform:uppercase; }
+        h1 { margin:0 0 6px; font-size:clamp(1.4rem,4vw,2.15rem); line-height:1.08; }
+        .cabecera p { max-width:700px; margin:0; color:#eaf3f8; }
+        .proposito { padding:12px 16px; border-left:4px solid var(--turquesa); border-radius:8px; background:#fff; box-shadow:0 5px 18px rgba(23,50,77,.08); }
+        .proposito h2, .ruta h2 { margin:0 0 5px; color:var(--azul); font-size:1.1rem; }
+        .proposito p { margin:0; }
+        .ruta { max-width:840px; margin:14px auto 0; }
+        .ruta-intro { margin:0 0 7px; }
+        .modulos { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
+        .modulo { min-height:96px; padding:11px 9px; border:0; border-radius:10px; background:#fff; color:var(--texto); text-align:left; cursor:pointer; box-shadow:0 4px 14px rgba(23,50,77,.1); transition:transform .2s,box-shadow .2s,background .2s; }
+        .modulo:hover, .modulo:focus-visible { transform:translateY(-4px); background:var(--azul); color:#fff; box-shadow:0 10px 24px rgba(23,50,77,.22); outline:3px solid rgba(53,184,176,.45); outline-offset:3px; }
+        .modulo-propuesto { grid-column:auto; }
+        .modulo strong { display:block; margin-bottom:4px; color:var(--azul); font-size:.65rem; text-transform:uppercase; letter-spacing:.04em; }
+        .modulo:hover strong, .modulo:focus-visible strong { color:var(--amarillo); }
+        .modulo span { display:block; font-size:.86rem; font-weight:bold; line-height:1.18; }
+        .instruccion { margin:7px 0 0; color:#5e6b75; font-size:.78rem; }
+        dialog { width:min(680px,calc(100% - 28px)); max-height:85vh; padding:0; border:0; border-radius:16px; color:var(--texto); box-shadow:0 20px 60px rgba(0,0,0,.3); }
+        dialog::backdrop { background:rgba(10,27,42,.65); backdrop-filter:blur(3px); }
+        .modal-cabecera { padding:24px 28px; background:var(--azul); color:#fff; }
+        .modal-cabecera h2 { margin:0; color:#fff; line-height:1.3; }
+        .modal-cuerpo { max-height:55vh; overflow:auto; padding:24px 28px; background:#fff; }
+        .modal-cuerpo h3 { margin:0 0 8px; color:var(--azul); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; }
+        .modal-cuerpo p { margin:0 0 22px; }
+        .modal-cuerpo ul { margin:0; padding-left:20px; }
+        .modal-pie { padding:16px 28px; border-top:1px solid #e1e7eb; background:#fff; text-align:right; }
+        .cerrar { padding:10px 18px; border:0; border-radius:7px; background:var(--turquesa); color:#fff; font-weight:bold; cursor:pointer; }
+        .cerrar:hover, .cerrar:focus-visible { background:#258e89; }
+        @media (max-width:840px) { .introduccion { display:block; } .proposito { margin-top:10px; } .modulos { grid-template-columns:repeat(2,minmax(0,1fr)); } .modulo-propuesto { grid-column:1 / -1; } }
+        @media (max-width:500px) { body { font-size:14px; } .contenedor { padding:6px 8px 12px; } .cabecera { padding:14px 13px; } .etiqueta { margin-bottom:5px; font-size:.62rem; } h1 { font-size:1.65rem; line-height:1.08; } .cabecera p { line-height:1.35; } .proposito { padding:11px 12px; } .proposito h2, .ruta h2 { font-size:1rem; } .ruta { margin-top:13px; } .modulos { grid-template-columns:1fr; gap:7px; } .modulo, .modulo-propuesto { min-height:72px; padding:10px 11px; grid-column:auto; } .modulo span { font-size:.88rem; } .instruccion { font-size:.75rem; } .modal-cabecera, .modal-cuerpo, .modal-pie { padding-left:18px; padding-right:18px; } }
+    </style>
+</head>
+<body>
+
+
+        <section class="ruta" aria-labelledby="titulo-ruta">
+            <h2 id="titulo-ruta">Explora los módulos</h2>
+            <p class="ruta-intro">Haz clic en cada módulo para desplegar su objetivo y contenidos.</p>
+            <div class="modulos">
+                <button class="modulo" type="button" data-modulo="1"><strong>Módulo 1</strong><span>Salud mental en comunidades educativas</span></button>
+                <button class="modulo" type="button" data-modulo="2"><strong>Módulo 2</strong><span>Prevención y actuación frente a la conducta suicida en comunidades educativas</span></button>
+                <button class="modulo" type="button" data-modulo="3"><strong>Módulo 3</strong><span>Protección de la salud mental en situaciones de crisis o emergencias</span></button>
+                <button class="modulo" type="button" data-modulo="4"><strong>Módulo 4</strong><span>Cuidado mutuo y personal</span></button>
+                <button class="modulo modulo-propuesto" type="button" data-modulo="5"><strong>Módulo propuesto</strong><span>Coordinación intersectorial y gestión de redes de apoyo</span></button>
+            </div>
+            <p class="instruccion">Selecciona un módulo para conocer su objetivo y sus contenidos principales.</p>
+        </section>
+
+    <dialog id="ventana-modulo" aria-labelledby="modal-titulo">
+        <div class="modal-cabecera"><h2 id="modal-titulo"></h2></div>
+        <div class="modal-cuerpo"><h3>Objetivo</h3><p id="modal-objetivo"></p><h3>Contenidos</h3><ul id="modal-contenidos"></ul></div>
+        <div class="modal-pie"><button class="cerrar" type="button" id="cerrar-modal">Cerrar</button></div>
+    </dialog>
+
+    <script>
+        const modulos = {
+            1: { titulo:'Salud mental en comunidades educativas', objetivo:'Identificar y analizar el marco normativo, las políticas públicas y los lineamientos de Mineduc y Minsal en salud mental y prevención del suicidio, para fundamentar el acompañamiento técnico a los establecimientos educacionales desde la gestión territorial.', contenidos:['1.1. Salud mental en la gestión territorial y apoyo a las comunidades educativas','1.2. Marco normativo asociado a salud mental en comunidades educativas','1.3. Enfoques y principios del Mineduc para abordar salud mental en comunidades educativas'] },
+            2: { titulo:'Prevención y actuación frente a la conducta suicida en comunidades educativas', objetivo:'Distinguir mitos de evidencia sobre la conducta suicida en niños, niñas y jóvenes, y aplicar los componentes de una estrategia preventiva integral y los protocolos de actuación —incluyendo el Protocolo 24 Horas— en el apoyo a comunidades educativas.', contenidos:['2.1. Panorama actual de la salud mental y conducta suicida: indicadores y grupos de mayor riesgo','2.2. Elementos fundamentales para comprender la conducta suicida','2.3. Estrategias de prevención del suicidio en comunidades educativas','2.4. Protocolos de actuación de las comunidades educativas frente a intento de suicidio y suicidio','2.5. Protocolo 24 Horas de articulación intersectorial: apoyo MINEDUC-MINSAL a la comunidad educativa'] },
+            3: { titulo:'Protección de la salud mental en situaciones de crisis o emergencias', objetivo:'Elaborar flujos y protocolos de actuación ante eventos críticos en la comunidad educativa, aplicando criterios de organización, comunicación segura, primera ayuda psicológica (PAP) y estrategias de sostenimiento y recuperación en el tiempo.', contenidos:['3.1. ¿Cuándo estamos frente a una crisis?','3.2. Organización y coordinación','3.3. Comunicación oportuna y segura','3.4. Primera ayuda psicológica (PAP)','3.5. Sostener en el tiempo: recuperación'] },
+            4: { titulo:'Cuidado mutuo y personal', objetivo:'Reconocer los efectos del desgaste emocional en los equipos que intervienen frente a situaciones de crisis, e incorporar estrategias de cuidado mutuo y personal que permitan sostener su bienestar y capacidad de respuesta en el tiempo.', contenidos:['3.6. Conectando con nuestro bienestar','3.7. Nos cuidamos como equipo','3.8. La importancia de buscar ayuda oportunamente'] },
+            5: { titulo:'Coordinación intersectorial y gestión de redes de apoyo', objetivo:'Contenido en construcción. Este módulo permitirá fortalecer la articulación con servicios y redes de apoyo para responder de manera oportuna y coordinada a las necesidades de las comunidades educativas.', contenidos:['Identificación de actores y redes de apoyo','Roles y responsabilidades en la coordinación intersectorial','Flujos de derivación, comunicación y seguimiento'] }
+        };
+        const ventana = document.getElementById('ventana-modulo');
+        const titulo = document.getElementById('modal-titulo');
+        const objetivo = document.getElementById('modal-objetivo');
+        const contenidos = document.getElementById('modal-contenidos');
+        const cerrar = document.getElementById('cerrar-modal');
+        document.querySelectorAll('[data-modulo]').forEach((boton) => boton.addEventListener('click', () => {
+            const modulo = modulos[boton.dataset.modulo];
+            titulo.textContent = modulo.titulo;
+            objetivo.textContent = modulo.objetivo;
+            contenidos.replaceChildren(...modulo.contenidos.map((contenido) => { const item = document.createElement('li'); item.textContent = contenido; return item; }));
+            ventana.showModal();
+            cerrar.focus();
+        }));
+        cerrar.addEventListener('click', () => ventana.close());
+        ventana.addEventListener('click', (evento) => { if (evento.target === ventana) ventana.close(); });
+        document.addEventListener('keydown', (evento) => { if (evento.key === 'Escape' && ventana.open) ventana.close(); });
+    </script>
+</body>
+</html>
