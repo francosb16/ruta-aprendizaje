@@ -22,6 +22,7 @@
         .modulos { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
         .modulo { min-height:112px; padding:14px 12px; border:0; border-radius:12px; background:#fff; color:var(--texto); text-align:left; cursor:pointer; box-shadow:0 4px 14px rgba(23,50,77,.1); transition:transform .2s,box-shadow .2s,background .2s; }
         .modulo:hover, .modulo:focus-visible { transform:translateY(-4px); background:var(--azul); color:#fff; box-shadow:0 10px 24px rgba(23,50,77,.22); outline:3px solid rgba(53,184,176,.45); outline-offset:3px; }
+        .modulo-propuesto { grid-column:1 / -1; }
         .modulo strong { display:block; margin-bottom:6px; color:var(--azul); font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; }
         .modulo:hover strong, .modulo:focus-visible strong { color:var(--amarillo); }
         .modulo span { display:block; font-size:.92rem; font-weight:bold; line-height:1.25; }
@@ -61,7 +62,7 @@
                 <button class="modulo" type="button" data-modulo="2"><strong>Módulo 2</strong><span>Prevención y actuación frente a la conducta suicida en comunidades educativas</span></button>
                 <button class="modulo" type="button" data-modulo="3"><strong>Módulo 3</strong><span>Protección de la salud mental en situaciones de crisis o emergencias</span></button>
                 <button class="modulo" type="button" data-modulo="4"><strong>Módulo 4</strong><span>Cuidado mutuo y personal</span></button>
-                <button class="modulo" type="button" data-modulo="5"><strong>Módulo propuesto</strong><span>Coordinación intersectorial y gestión de redes de apoyo</span></button>
+                <button class="modulo modulo-propuesto" type="button" data-modulo="5"><strong>Módulo propuesto</strong><span>Coordinación intersectorial y gestión de redes de apoyo</span></button>
             </div>
             <p class="instruccion">Selecciona un módulo para conocer su objetivo y sus contenidos principales.</p>
         </section>
