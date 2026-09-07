@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ámbito sociosanitario e intersectorial | Salud mental</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--azul: #0054a6;
+			--celeste: #00a3e0;
+			--amarillo: #ffcc00;
+			--fondo: #f2f7fb;
+			--texto: #263746;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			background: var(--fondo);
+			color: var(--texto);
+			font-family: Arial, Helvetica, sans-serif;
+			line-height: 1.45;
+		}
+
+		main {
+			width: min(920px, calc(100% - 24px));
+			margin: 0 auto;
+			padding: 28px 0 40px;
+		}
+
+		.encabezado {
+			margin-bottom: 28px;
+			padding: 24px 28px;
+			border-radius: 14px;
+			background: var(--azul);
+			border-bottom: 5px solid var(--amarillo);
+			color: #fff;
+		}
+
+		.encabezado h1 { margin: 0 0 6px; font-size: clamp(1.4rem, 3vw, 2rem); }
+		.encabezado p { margin: 0; color: #e6f4fb; }
+		.ambito { margin-bottom: 30px; }
+		.ambito h2 { margin: 0 0 10px; color: var(--azul); font-size: 1.25rem; }
+
+		.accordion-item {
+			overflow: hidden;
+			margin-bottom: 8px;
+			border: 1px solid #b6d9ec;
+			border-radius: 8px !important;
+			background: #fff;
+		}
+
+		.accordion-button {
+			gap: 16px;
+			color: var(--azul);
+			font-weight: 700;
+			background: #fff;
+		}
+
+		.accordion-button:not(.collapsed) {
+			color: var(--azul);
+			background: #e6f5fb;
+			box-shadow: none;
+		}
+
+		.accordion-button:focus { box-shadow: 0 0 0 .2rem rgba(0, 163, 224, .28); }
+		.accordion-button::after { flex-shrink: 0; }
+		.instrumento { flex: 1 1 55%; }
+		.vigencia { flex: 0 0 105px; color: #536774; font-size: .9rem; font-weight: 400; }
+		.accordion-body { border-top: 1px solid #c9e6f3; }
+		.dato { margin: 0; }
+		.dato + .dato { margin-top: 12px; }
+		.dato strong { display: block; margin-bottom: 2px; color: var(--azul); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
+
+		@media (max-width: 560px) {
+			main { width: min(100% - 16px, 920px); padding-top: 16px; }
+			.encabezado { margin-bottom: 22px; padding: 18px; }
+			.accordion-button { align-items: flex-start; gap: 8px; padding: 14px; }
+			.instrumento { line-height: 1.25; }
+			.vigencia { flex: 0 0 68px; font-size: .8rem; text-align: right; }
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<header class="encabezado">
+			<h1>Ámbito sociosanitario e intersectorial</h1>
+			<p>Selecciona cada instrumento para consultar su vigencia y aporte clave al bienestar de las comunidades educativas.</p>
+		</header>
+
+		<section class="ambito" aria-labelledby="ambito-sociosanitario">
+			<h2 id="ambito-sociosanitario">Ámbito sociosanitario e intersectorial</h2>
+			<div class="accordion" id="accordionSociosanitario">
+				<div class="accordion-item">
+					<h3 class="accordion-header" id="sociosanitario-heading-1">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sociosanitario-collapse-1" aria-expanded="true" aria-controls="sociosanitario-collapse-1">
+							<span class="instrumento">Política Nacional de Niñez y Adolescencia</span><span class="vigencia">2024 a 2032</span>
+						</button>
+					</h3>
+					<div id="sociosanitario-collapse-1" class="accordion-collapse collapse show" aria-labelledby="sociosanitario-heading-1" data-bs-parent="#accordionSociosanitario">
+						<div class="accordion-body"><p class="dato"><strong>Aporte clave al bienestar y salud mental</strong>Uno de sus diez objetivos estratégicos es fortalecer la salud mental de niñas, niños y adolescentes, con foco en detección temprana de riesgos biopsicosociales y tratamiento oportuno de trastornos de salud mental y consumo de drogas y alcohol.</p></div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h3 class="accordion-header" id="sociosanitario-heading-2">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sociosanitario-collapse-2" aria-expanded="false" aria-controls="sociosanitario-collapse-2">
+							<span class="instrumento">Plan Nacional de Salud Mental</span><span class="vigencia">2017-2025</span>
+						</button>
+					</h3>
+					<div id="sociosanitario-collapse-2" class="accordion-collapse collapse" aria-labelledby="sociosanitario-heading-2" data-bs-parent="#accordionSociosanitario">
+						<div class="accordion-body"><p class="dato"><strong>Aporte clave al bienestar y salud mental</strong>Enfoque comunitario e intersectorial que interpela al sistema educativo a ser promotor de salud mental: detectar tempranamente problemas y vincularse con redes asistenciales.</p></div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
