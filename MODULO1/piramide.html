@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modelo Escuela Total Multinivel</title>
 
   <style>
     :root {
-      --azul-oscuro: #17324d;
-      --azul-medio: #35b8b0;
+      --azul-oscuro: #17477f;
+      --azul-medio: #416b9f;
       --azul-claro: #7895bb;
-      --texto: #263746;
-      --fondo-tarjeta: #ffffff;
-      --borde: #e2e8f0;
     }
 
     * {
@@ -22,31 +18,45 @@
 
     body {
       margin: 0;
-      padding: 10px;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--texto);
-      background: transparent;
+      padding: 30px 20px;
+      font-family: Arial, sans-serif;
+      color: #18324d;
+      background: #f4f7fb;
+    }
+
+    h1 {
+      color: var(--azul-oscuro);
+      text-align: center;
+    }
+
+    .introduccion {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      line-height: 1.6;
     }
 
     main {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: start;
-      max-width: 840px;
-      margin: 0 auto;
+      grid-template-columns: minmax(320px, 650px) minmax(280px, 430px);
+      gap: 35px;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 30px auto;
     }
 
     .piramide,
-    .informacion {
-      background: var(--fondo-tarjeta);
-      border-radius: 12px;
-      border: 1px solid var(--borde);
-      box-shadow: 0 4px 12px rgba(23, 50, 77, 0.05);
+    .informacion,
+    .actividad {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 5px 18px #173f6320;
     }
 
     .piramide {
-      padding: 16px;
+      position: relative;
+      padding: 20px;
     }
 
     svg {
@@ -59,113 +69,148 @@
       cursor: pointer;
       stroke: white;
       stroke-width: 2;
-      transition: all 0.2s ease;
+      transition: 0.2s;
     }
 
     .nivel:hover,
     .nivel.activo {
-      filter: brightness(1.1);
-      stroke: #f5c451;
+      filter: brightness(1.15);
+      stroke: #ffd166;
       stroke-width: 4;
     }
 
     .etiqueta {
       fill: white;
-      font-size: 15px;
+      font-size: 17px;
       font-weight: bold;
       text-anchor: middle;
       pointer-events: none;
     }
 
     .informacion {
-      min-height: 380px;
+      display: none;
+      position: fixed;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
+      background: #18324d80;
+      z-index: 10;
+    }
+
+    .informacion.abierto {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
-    .informacion-content {
-      flex-grow: 1;
+    .modal-contenido {
+      position: relative;
+      width: min(100%, 560px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      border: 2px solid #d8e4f2;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 12px 35px #173f6340;
     }
 
-    .informacion h2 {
-      margin-top: 0;
-      margin-bottom: 6px;
+    .modal-cerrar {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
       color: var(--azul-oscuro);
-      font-size: 18px;
-      font-weight: bold;
+      background: #e8f0fa;
+      font-size: 25px;
+      line-height: 1;
+      cursor: pointer;
     }
 
-    .informacion h3 {
-      margin-top: 0;
-      margin-bottom: 12px;
+    .modal-contenido h2 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
       color: var(--azul-oscuro);
-      font-size: 13px;
-      font-weight: normal;
-      opacity: 0.85;
     }
 
-    .informacion p {
-      font-size: 13px;
-      line-height: 1.45;
-      margin-bottom: 12px;
-      text-align: justify;
+    .modal-contenido h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--azul-medio);
     }
 
-    .informacion ul {
-      margin: 0 0 16px 0;
-      padding-left: 18px;
+    .modal-contenido p,
+    .modal-contenido li,
+    .actividad p {
+      line-height: 1.35;
+      font-size: 0.9rem;
     }
 
-    .informacion li {
-      font-size: 13px;
-      line-height: 1.4;
-      margin-bottom: 6px;
+    .modal-contenido p {
+      margin: 0 0 10px;
+    }
+
+    .modal-contenido ul {
+      margin: 0;
+      padding-left: 20px;
     }
 
     .aviso {
-      padding: 10px 12px;
-      border-left: 4px solid #f5c451;
-      background: #fffdf5;
-      border-radius: 0 6px 6px 0;
-      font-size: 12px;
+      margin-top: 10px;
+      padding: 8px;
+      font-size: 0.8rem;
+      border-left: 5px solid #f2b84b;
+      background: #fff8e7;
+    }
+
+    .actividad {
+      max-width: 1080px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #e8f0fa;
+    }
+
+    .actividad h2 {
       color: var(--azul-oscuro);
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 800px) {
       main {
         grid-template-columns: 1fr;
       }
 
-      .etiqueta {
-        font-size: 13px;
+      .informacion {
+        padding: 14px;
       }
 
-      .informacion {
-        min-height: auto;
+      .modal-contenido {
+        padding: 28px 20px 20px;
+      }
+
+      .etiqueta {
+        font-size: 13px;
       }
     }
   </style>
 </head>
 
 <body>
+ 
 
   <main>
-    <!-- PIRÁMIDE INTERACTIVA -->
     <section class="piramide">
-      <svg viewBox="0 0 700 500" aria-label="Pirámide interactiva del Modelo Escuela Total Multinivel">
+      <svg viewBox="0 0 700 500" aria-label="Pirámide interactiva">
 
-        <!-- NIVEL 3: ATENCIÓN ESPECIALIZADA -->
         <polygon
           id="nivel3"
           class="nivel"
           points="350,20 450,150 250,150"
-          fill="#17324d"
+          fill="#17477f"
           tabindex="0">
         </polygon>
 
-        <!-- NIVEL 2: PREVENCIÓN FOCALIZADA -->
         <polygon
           id="nivel2"
           class="nivel"
@@ -174,7 +219,6 @@
           tabindex="0">
         </polygon>
 
-        <!-- NIVEL 1: PROMOCIÓN UNIVERSAL -->
         <polygon
           id="nivel1"
           class="nivel activo"
@@ -183,17 +227,24 @@
           tabindex="0">
         </polygon>
 
-        <!-- ETIQUETAS SOBRE LA PIRÁMIDE -->
-        <text x="350" y="100" class="etiqueta">PERSONA</text>
+        <text x="350" y="105" class="etiqueta">PERSONA</text>
         <text x="350" y="235" class="etiqueta">GRUPOS ESPECÍFICOS</text>
-        <text x="350" y="400" class="etiqueta">TODA LA COMUNIDAD EDUCATIVA</text>
+        <text x="350" y="405" class="etiqueta">
+          TODA LA COMUNIDAD EDUCATIVA
+        </text>
       </svg>
-    </section>
 
-    <!-- PANEL INFORMATIVO -->
-    <section class="informacion" id="informacion" aria-live="polite"></section>
+    </section>
   </main>
 
+  <section class="informacion" id="informacion" aria-live="polite" role="dialog" aria-modal="true" aria-labelledby="titulo-informacion">
+    <div class="modal-contenido">
+      <button class="modal-cerrar" id="cerrar-informacion" type="button" aria-label="Cerrar información">&times;</button>
+      <div id="detalle-informacion"></div>
+    </div>
+  </section>
+
+  
   <script>
     const contenidos = {
       nivel1: {
@@ -237,6 +288,8 @@
     };
 
     const informacion = document.getElementById("informacion");
+    const detalleInformacion = document.getElementById("detalle-informacion");
+    const cerrarInformacion = document.getElementById("cerrar-informacion");
     const niveles = document.querySelectorAll(".nivel");
 
     function mostrarInformacion(id) {
@@ -246,19 +299,20 @@
         nivel.classList.toggle("activo", nivel.id === id);
       });
 
-      informacion.innerHTML = `
-        <div class="informacion-content">
-          <h2>${contenido.titulo}</h2>
-          <h3>${contenido.subtitulo}</h3>
-          <p>${contenido.texto}</p>
-          <ul>
-            ${contenido.acciones.map(accion => `<li>${accion}</li>`).join("")}
-          </ul>
-        </div>
-        <div class="aviso">
-          Selecciona otro nivel de la pirámide para consultar su información.
-        </div>
+      detalleInformacion.innerHTML = `
+        <h2 id="titulo-informacion">${contenido.titulo}</h2>
+        <h3>${contenido.subtitulo}</h3>
+        <p>${contenido.texto}</p>
+        <ul>
+          ${contenido.acciones.map(accion => `<li>${accion}</li>`).join("")}
+        </ul>
       `;
+
+      informacion.classList.add("abierto");
+    }
+
+    function cerrarModal() {
+      informacion.classList.remove("abierto");
     }
 
     niveles.forEach(nivel => {
@@ -274,7 +328,19 @@
       });
     });
 
-    mostrarInformacion("nivel1");
+    cerrarInformacion.addEventListener("click", cerrarModal);
+
+    informacion.addEventListener("click", evento => {
+      if (evento.target === informacion) {
+        cerrarModal();
+      }
+    });
+
+    document.addEventListener("keydown", evento => {
+      if (evento.key === "Escape") {
+        cerrarModal();
+      }
+    });
   </script>
 </body>
 </html>
