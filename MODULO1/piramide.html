@@ -7,9 +7,12 @@
 
   <style>
     :root {
-      --azul-oscuro: #17477f;
-      --azul-medio: #416b9f;
+      --azul-oscuro: #17324d;
+      --azul-medio: #35b8b0;
       --azul-claro: #7895bb;
+      --texto: #263746;
+      --fondo-tarjeta: #ffffff;
+      --borde: #e2e8f0;
     }
 
     * {
@@ -18,44 +21,31 @@
 
     body {
       margin: 0;
-      padding: 30px 20px;
-      font-family: Arial, sans-serif;
-      color: #18324d;
-      background: #f4f7fb;
-    }
-
-    h1 {
-      color: var(--azul-oscuro);
-      text-align: center;
-    }
-
-    .introduccion {
-      max-width: 850px;
-      margin: auto;
-      text-align: center;
-      line-height: 1.6;
+      padding: 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--texto);
+      background: transparent;
     }
 
     main {
       display: grid;
-      grid-template-columns: minmax(320px, 650px) minmax(280px, 430px);
-      gap: 35px;
-      align-items: center;
-      justify-content: center;
-      max-width: 1200px;
-      margin: 30px auto;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+      max-width: 840px;
+      margin: 0 auto;
     }
 
     .piramide,
-    .informacion,
-    .actividad {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 5px 18px #173f6320;
+    .informacion {
+      background: var(--fondo-tarjeta);
+      border-radius: 12px;
+      border: 1px solid var(--borde);
+      box-shadow: 0 4px 12px rgba(23, 50, 77, 0.05);
     }
 
     .piramide {
-      padding: 20px;
+      padding: 16px;
     }
 
     svg {
@@ -68,63 +58,81 @@
       cursor: pointer;
       stroke: white;
       stroke-width: 2;
-      transition: 0.2s;
+      transition: all 0.2s ease;
     }
 
     .nivel:hover,
     .nivel.activo {
-      filter: brightness(1.15);
-      stroke: #ffd166;
+      filter: brightness(1.1);
+      stroke: #f5c451;
       stroke-width: 4;
     }
 
     .etiqueta {
       fill: white;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: bold;
       text-anchor: middle;
       pointer-events: none;
     }
 
     .informacion {
-      min-height: 350px;
-      padding: 30px;
+      min-height: 380px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .informacion-content {
+      flex-grow: 1;
     }
 
     .informacion h2 {
       margin-top: 0;
+      margin-bottom: 6px;
       color: var(--azul-oscuro);
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .informacion h3 {
-      color: var(--azul-medio);
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: var(--azul-oscuro);
+      font-size: 13px;
+      font-weight: normal;
+      opacity: 0.85;
     }
 
-    .informacion p,
-    .informacion li,
-    .actividad p {
-      line-height: 1.6;
+    .informacion p {
+      font-size: 13px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    .informacion ul {
+      margin: 0 0 16px 0;
+      padding-left: 18px;
+    }
+
+    .informacion li {
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 6px;
     }
 
     .aviso {
-      margin-top: 20px;
-      padding: 14px;
-      border-left: 5px solid #f2b84b;
-      background: #fff8e7;
-    }
-
-    .actividad {
-      max-width: 1080px;
-      margin: 30px auto;
-      padding: 25px;
-      background: #e8f0fa;
-    }
-
-    .actividad h2 {
+      padding: 10px 12px;
+      border-left: 4px solid #f5c451;
+      background: #fffdf5;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
       color: var(--azul-oscuro);
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 620px) {
       main {
         grid-template-columns: 1fr;
       }
@@ -132,25 +140,31 @@
       .etiqueta {
         font-size: 13px;
       }
+
+      .informacion {
+        min-height: auto;
+      }
     }
   </style>
 </head>
 
 <body>
- 
 
   <main>
+    <!-- PIRÁMIDE INTERACTIVA -->
     <section class="piramide">
-      <svg viewBox="0 0 700 500" aria-label="Pirámide interactiva">
+      <svg viewBox="0 0 700 500" aria-label="Pirámide interactiva del Modelo Escuela Total Multinivel">
 
+        <!-- NIVEL 3: ATENCIÓN ESPECIALIZADA -->
         <polygon
           id="nivel3"
           class="nivel"
           points="350,20 450,150 250,150"
-          fill="#17477f"
+          fill="#17324d"
           tabindex="0">
         </polygon>
 
+        <!-- NIVEL 2: PREVENCIÓN FOCALIZADA -->
         <polygon
           id="nivel2"
           class="nivel"
@@ -159,6 +173,7 @@
           tabindex="0">
         </polygon>
 
+        <!-- NIVEL 1: PROMOCIÓN UNIVERSAL -->
         <polygon
           id="nivel1"
           class="nivel activo"
@@ -167,18 +182,17 @@
           tabindex="0">
         </polygon>
 
-        <text x="350" y="105" class="etiqueta">PERSONA</text>
+        <!-- ETIQUETAS SOBRE LA PIRÁMIDE -->
+        <text x="350" y="100" class="etiqueta">PERSONA</text>
         <text x="350" y="235" class="etiqueta">GRUPOS ESPECÍFICOS</text>
-        <text x="350" y="405" class="etiqueta">
-          TODA LA COMUNIDAD EDUCATIVA
-        </text>
+        <text x="350" y="400" class="etiqueta">TODA LA COMUNIDAD EDUCATIVA</text>
       </svg>
     </section>
 
+    <!-- PANEL INFORMATIVO -->
     <section class="informacion" id="informacion" aria-live="polite"></section>
   </main>
 
-  
   <script>
     const contenidos = {
       nivel1: {
@@ -232,12 +246,14 @@
       });
 
       informacion.innerHTML = `
-        <h2>${contenido.titulo}</h2>
-        <h3>${contenido.subtitulo}</h3>
-        <p>${contenido.texto}</p>
-        <ul>
-          ${contenido.acciones.map(accion => `<li>${accion}</li>`).join("")}
-        </ul>
+        <div class="informacion-content">
+          <h2>${contenido.titulo}</h2>
+          <h3>${contenido.subtitulo}</h3>
+          <p>${contenido.texto}</p>
+          <ul>
+            ${contenido.acciones.map(accion => `<li>${accion}</li>`).join("")}
+          </ul>
+        </div>
         <div class="aviso">
           Selecciona otro nivel de la pirámide para consultar su información.
         </div>
