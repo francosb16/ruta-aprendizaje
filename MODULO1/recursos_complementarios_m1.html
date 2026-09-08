@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivos disponibles</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            border-top: 3px solid #17324d;
+            background: #f4f7f9;
+            color: #17324d;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 13px 7px 8px;
+        }
+
+        .encabezado {
+            margin-bottom: 20px;
+            padding: 23px 21px;
+            background: #ffffff;
+            border-left: 4px solid #35b8b0;
+            border-radius: 8px;
+            box-shadow: 0 5px 16px rgba(23, 50, 77, .06);
+        }
+
+        .encabezado h2 {
+            margin: 0;
+            font-size: 16px;
+            color: #17324d;
+        }
+
+        .lista {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 8px 10px;
+            background: #eef2f4;
+        }
+
+        .recurso {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            min-height: 69px;
+            padding: 13px 15px;
+            background: #ffffff;
+            border: 1px solid #d5e0e5;
+            border-left: 4px solid #35b8b0;
+            border-radius: 9px;
+            box-shadow: 0 3px 8px rgba(23, 50, 77, .05);
+        }
+
+        .recurso:nth-child(2) {
+            border-left-color: #f5c451;
+        }
+
+        .recurso:nth-child(3) {
+            border-left-color: #e9826d;
+        }
+
+        .recurso:nth-child(4) {
+            border-left-color: #17324d;
+        }
+
+        .nombre {
+            min-width: 0;
+        }
+
+        .nombre strong {
+            display: block;
+            margin-bottom: 3px;
+            color: #17324d;
+            font-size: 15px;
+        }
+
+        .nombre span {
+            display: block;
+            color: #687681;
+            font-size: 12px;
+        }
+
+        .descargar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 104px;
+            padding: 10px 18px;
+            border-radius: 7px;
+            background: #35b8b0;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .recurso:nth-child(2) .descargar {
+            background: #35b8b0;
+        }
+
+        .recurso:nth-child(3) .descargar {
+            background: #35b8b0;
+        }
+
+        .recurso:nth-child(4) .descargar {
+            background: #35b8b0;
+        }
+
+        .descargar:hover,
+        .descargar:focus-visible {
+            background: #269f99;
+            outline: 3px solid rgba(53, 184, 176, .25);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 560px) {
+            .recurso {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .descargar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="contenedor">
+        <section class="encabezado">
+            <h2>Recursos y Bibliografía Complementaria</h2>
+        </section>
+
+        <section class="lista">
+            <article class="recurso">
+                <div class="nombre">
+                    <strong>Escuela Total Multinivel — Cuaderno 1</strong>
+                    <span>Programa A Convivir se Aprende (2025)</span>
+                </div>
+                <a class="descargar"
+                   href="https://culturaeducativa.mineduc.gob.cl/wp-content/uploads/2026/03/Escuela-total-Salud-mental-1_compressed.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Descargar
+                </a>
+            </article>
+
+            <article class="recurso">
+                <div class="nombre">
+                    <strong>Escuela Total Multinivel — Cuaderno 2</strong>
+                    <span>Programa A Convivir se Aprende (2025)</span>
+                </div>
+                <a class="descargar"
+                   href="https://culturaeducativa.mineduc.gob.cl/wp-content/uploads/2026/03/Escuela-Total-salud-mental-2.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Descargar
+                </a>
+            </article>
+
+            <article class="recurso">
+                <div class="nombre">
+                    <strong>Cartilla 1: Enfoques y conceptos fundamentales</strong>
+                    <span>Estrategia de Salud Mental (2025)</span>
+                </div>
+                <a class="descargar"
+                   href="https://convivenciaparaciudadania.mineduc.gob.cl/wp-content/uploads/2026/01/Cartilla-Salud-1-web.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Descargar
+                </a>
+            </article>
+
+            <article class="recurso">
+                <div class="nombre">
+                    <strong>Cartilla: Asistentes de la Educación</strong>
+                    <span>Bienestar y Salud Mental (2025)</span>
+                </div>
+                <a class="descargar"
+                   href="https://convivenciaparaciudadania.mineduc.gob.cl/wp-content/uploads/2025/08/Cartilla-Salud-Mental-AAEE-actorias-clave.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Descargar
+                </a>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
