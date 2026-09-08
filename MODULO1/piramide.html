@@ -1,1 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo Escuela Total Multinivel</title>
 
+  <style>
+    :root {
+      --azul-oscuro: #17477f;
+      --azul-medio: #416b9f;
+      --azul-claro: #7895bb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px 20px;
+      font-family: Arial, sans-serif;
+      color: #18324d;
+      background: #f4f7fb;
+    }
+
+    h1 {
+      color: var(--azul-oscuro);
+      text-align: center;
+    }
+
+    .introduccion {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(320px, 650px) minmax(280px, 430px);
+      gap: 35px;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    .piramide,
+    .informacion,
+    .actividad {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 5px 18px #173f6320;
+    }
+
+    .piramide {
+      padding: 20px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .nivel {
+      cursor: pointer;
+      stroke: white;
+      stroke-width: 2;
+      transition: 0.2s;
+    }
+
+    .nivel:hover,
+    .nivel.activo {
+      filter: brightness(1.15);
+      stroke: #ffd166;
+      stroke-width: 4;
+    }
+
+    .etiqueta {
+      fill: white;
+      font-size: 17px;
+      font-weight: bold;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    .informacion {
+      min-height: 350px;
+      padding: 30px;
+    }
+
+    .informacion h2 {
+      margin-top: 0;
+      color: var(--azul-oscuro);
+    }
+
+    .informacion h3 {
+      color: var(--azul-medio);
+    }
+
+    .informacion p,
+    .informacion li,
+    .actividad p {
+      line-height: 1.6;
+    }
+
+    .aviso {
+      margin-top: 20px;
+      padding: 14px;
+      border-left: 5px solid #f2b84b;
+      background: #fff8e7;
+    }
+
+    .actividad {
+      max-width: 1080px;
+      margin: 30px auto;
+      padding: 25px;
+      background: #e8f0fa;
+    }
+
+    .actividad h2 {
+      color: var(--azul-oscuro);
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .etiqueta {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+ 
+
+  <main>
+    <section class="piramide">
+      <svg viewBox="0 0 700 500" aria-label="Pirámide interactiva">
+
+        <polygon
+          id="nivel3"
+          class="nivel"
+          points="350,20 450,150 250,150"
+          fill="#17477f"
+          tabindex="0">
+        </polygon>
+
+        <polygon
+          id="nivel2"
+          class="nivel"
+          points="250,150 450,150 570,300 130,300"
+          fill="#416b9f"
+          tabindex="0">
+        </polygon>
+
+        <polygon
+          id="nivel1"
+          class="nivel activo"
+          points="130,300 570,300 680,470 20,470"
+          fill="#7895bb"
+          tabindex="0">
+        </polygon>
+
+        <text x="350" y="105" class="etiqueta">PERSONA</text>
+        <text x="350" y="235" class="etiqueta">GRUPOS ESPECÍFICOS</text>
+        <text x="350" y="405" class="etiqueta">
+          TODA LA COMUNIDAD EDUCATIVA
+        </text>
+      </svg>
+    </section>
+
+    <section class="informacion" id="informacion" aria-live="polite"></section>
+  </main>
+
+  
+  <script>
+    const contenidos = {
+      nivel1: {
+        titulo: "Promoción universal",
+        subtitulo: "Nivel 1 · Acciones de alta cobertura y baja intensidad",
+        texto:
+          "Son acciones dirigidas a toda la comunidad educativa. Su objetivo es fortalecer el bienestar socioemocional y los factores protectores.",
+        acciones: [
+          "Educación en inclusión.",
+          "Cuidado mutuo y autocuidado.",
+          "Aprendizaje socioemocional.",
+          "Fortalecimiento del bienestar comunitario."
+        ]
+      },
+
+      nivel2: {
+        titulo: "Prevención focalizada",
+        subtitulo: "Nivel 2 · Acciones de mediana intensidad",
+        texto:
+          "Son acciones dirigidas a grupos de estudiantes que presentan mayores factores de riesgo para el bienestar y la salud mental.",
+        acciones: [
+          "Monitoreo de estudiantes.",
+          "Apoyo psicosocial.",
+          "Aprendizaje socioemocional.",
+          "Participación de profesionales del establecimiento o del territorio."
+        ]
+      },
+
+      nivel3: {
+        titulo: "Atención especializada",
+        subtitulo: "Nivel 3 · Acciones de mayor intensidad",
+        texto:
+          "Son acciones dirigidas a estudiantes que presentan problemas de salud mental o riesgos específicos que requieren atención profesional individual.",
+        acciones: [
+          "Acogida y primera respuesta.",
+          "Derivación acompañada a redes de apoyo.",
+          "Articulación de apoyos pedagógicos.",
+          "Resguardo de la trayectoria educativa."
+        ]
+      }
+    };
+
+    const informacion = document.getElementById("informacion");
+    const niveles = document.querySelectorAll(".nivel");
+
+    function mostrarInformacion(id) {
+      const contenido = contenidos[id];
+
+      niveles.forEach(nivel => {
+        nivel.classList.toggle("activo", nivel.id === id);
+      });
+
+      informacion.innerHTML = `
+        <h2>${contenido.titulo}</h2>
+        <h3>${contenido.subtitulo}</h3>
+        <p>${contenido.texto}</p>
+        <ul>
+          ${contenido.acciones.map(accion => `<li>${accion}</li>`).join("")}
+        </ul>
+        <div class="aviso">
+          Selecciona otro nivel de la pirámide para consultar su información.
+        </div>
+      `;
+    }
+
+    niveles.forEach(nivel => {
+      nivel.addEventListener("click", () => {
+        mostrarInformacion(nivel.id);
+      });
+
+      nivel.addEventListener("keydown", evento => {
+        if (evento.key === "Enter" || evento.key === " ") {
+          evento.preventDefault();
+          mostrarInformacion(nivel.id);
+        }
+      });
+    });
+
+    mostrarInformacion("nivel1");
+  </script>
+</body>
+</html>
