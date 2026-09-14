@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan paso a paso</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e7e7e7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .accordion {
+        width: 1220px;
+        border: 4px solid #0d3f79;
+        background: #f4f4f4;
+        box-shadow: 0 0 0 2px #f4f4f4 inset;
+        overflow: hidden;
+      }
+
+      .accordion-item {
+        border-bottom: 2px solid #fff;
+      }
+
+      .accordion-item:last-child {
+        border-bottom: none;
+      }
+
+      details {
+        width: 100%;
+      }
+
+      summary {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        min-height: 170px;
+        padding: 18px 18px 12px;
+        cursor: pointer;
+        user-select: none;
+        color: #fff;
+        position: relative;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .accordion-item.p summary { background: #0d6ea8; }
+      .accordion-item.o summary { background: #0c5d8c; }
+      .accordion-item.e summary { background: #f0b537; }
+      .accordion-item.c summary { background: #0b5a8a; }
+
+      .accordion-item summary::after {
+        content: "+";
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        font-weight: 700;
+        opacity: 0.8;
+      }
+
+      details[open] summary::after {
+        content: "−";
+      }
+
+      .circle {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        border: 3px solid rgba(255,255,255,0.9);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        background: rgba(255,255,255,0.05);
+      }
+
+      .title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        text-align: center;
+        color: rgba(255,255,255,0.92);
+      }
+
+      .content {
+        background: #f7f7f7;
+        padding: 0 0 18px;
+      }
+
+      .content ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .content li {
+        position: relative;
+        padding: 14px 18px 14px 42px;
+        margin: 0;
+        color: #2d4d63;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        border-top: 1px solid rgba(13, 63, 121, 0.08);
+      }
+
+      .content li::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        top: 18px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.9);
+      }
+
+      .accordion-item.p .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+      .accordion-item.o .content li::before { background: #f0b537; box-shadow: 0 0 0 2px rgba(240,181,55,0.2); }
+      .accordion-item.e .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+      .accordion-item.c .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+
+      @media (max-width: 900px) {
+        .accordion {
+          width: 95%;
+        }
+
+        .circle {
+          width: 58px;
+          height: 58px;
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="accordion">
+      <div class="accordion-item p">
+        <details open>
+          <summary>
+            <div class="circle">P</div>
+            <h3 class="title">Preparar</h3>
+            <p class="subtitle">Infórmate antes de intervenir</p>
+          </summary>
+          <div class="content">
+            <ul>
+              <li>Infórmate de lo ocurrido antes de acercarte</li>
+              <li>Conoce qué recursos están disponibles en tu escuela y comunidad</li>
+              <li>Cuida tu propio estado: no puedes dar lo que no tienes</li>
+              <li>Coordina con el equipo quién apoyará a quién</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="accordion-item o">
+        <details>
+          <summary>
+            <div class="circle">O</div>
+            <h3 class="title">Observar</h3>
+            <p class="subtitle">Identifica quién necesita apoyo</p>
+          </summary>
+          <div class="content">
+            <ul>
+              <li>¿Hay alguien en riesgo inmediato?</li>
+              <li>¿Quién está muy angustiado y necesita apoyo prioritario?</li>
+              <li>¿Hay personas con necesidades básicas urgentes?</li>
+              <li>¿Quién puede estar en mayor vulnerabilidad?</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="accordion-item e">
+        <details>
+          <summary>
+            <div class="circle">E</div>
+            <h3 class="title">Escuchar</h3>
+            <p class="subtitle">Acércate y escucha con empatía</p>
+          </summary>
+          <div class="content">
+            <ul>
+              <li>“¿Cómo estás? Estoy aquí contigo”</li>
+              <li>Escucha sin interrumpir ni juzgar</li>
+              <li>Valida: “Es normal sentir miedo en este momento”</li>
+              <li>No presentes a relatar lo sucedido en detalle</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="accordion-item c">
+        <details>
+          <summary>
+            <div class="circle">C</div>
+            <h3 class="title">Conectar</h3>
+            <p class="subtitle">Ayuda a acceder a apoyo y recursos</p>
+          </summary>
+          <div class="content">
+            <ul>
+              <li>Facilita información clara y veraz</li>
+              <li>Ayuda a contactar a la familia o red de apoyo</li>
+              <li>Orienta a quienes necesitan atención especializada</li>
+              <li>Deriva cuando hay señales de alerta graves</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </body>
+</html>
