@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conducta suicida o suicidalidad</title>
+  <style>
+    :root {
+      --green: #25b34b;
+      --dark-green: #006b3b;
+      --light-green: #d5eca9;
+      --line-purple: #b8a4ff;
+      --text: #101412;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      background: #fff;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .infographic {
+      width: min(100%, 1120px);
+      min-height: 100vh;
+      padding: 34px 32px 58px;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 235px;
+      aspect-ratio: 1;
+      padding: 28px;
+      border: 10px solid #16854d;
+      border-radius: 50%;
+      background: radial-gradient(circle at 42% 35%, #07804a, var(--dark-green) 72%);
+      box-shadow: 0 18px 27px rgba(0, 75, 42, .2), 0 0 0 10px #dfe3e7;
+      color: #fff;
+      text-align: center;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(19px, 2.45vw, 24px);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 10px 0 0;
+      font-size: clamp(10px, 1.1vw, 12px);
+      line-height: 1.2;
+      text-align: justify;
+    }
+
+    .common-factor {
+      width: 245px;
+      margin: 46px 0 45px;
+      font-size: clamp(14px, 1.45vw, 17px);
+      line-height: 1.28;
+      text-align: justify;
+    }
+
+    .common-factor strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--dark-green);
+      text-align: center;
+      font-size: clamp(15px, 1.55vw, 18px);
+    }
+
+    .timeline {
+      position: relative;
+      width: 100%;
+      height: 17px;
+      border-top: 5px solid var(--green);
+    }
+
+    .timeline::before,
+    .timeline::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      width: 4px;
+      height: 25px;
+      background: var(--line-purple);
+    }
+
+    .timeline::before { left: 0; }
+    .timeline::after { right: 0; }
+
+    .node {
+      position: absolute;
+      top: -15px;
+      width: 22px;
+      height: 22px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .22);
+      transform: translateX(-50%);
+    }
+
+    .node.one { left: 16.66%; }
+    .node.two { left: 50%; }
+    .node.three { left: 83.33%; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1.12fr .9fr 1.12fr;
+      width: 100%;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .card {
+      position: relative;
+      height: 260px;
+      perspective: 1000px;
+    }
+
+    .card:nth-child(2) { height: 190px; }
+    .card:nth-child(3) { height: 330px; }
+
+    .card input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .card-inner {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform .6s ease;
+    }
+
+    .card input:checked + .card-inner { transform: rotateY(180deg); }
+
+    .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      backface-visibility: hidden;
+      overflow: hidden;
+      border: 1px solid var(--line-purple);
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 7px 12px rgba(0, 75, 42, .12);
+    }
+
+    .front { background: var(--light-green); }
+
+    .front h2,
+    .back h2 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.05;
+    }
+
+    .front h2 {
+      padding: 11px 12px;
+      background: linear-gradient(90deg, #08b951, #02a845);
+    }
+
+    .front p {
+      margin: 0;
+      padding: 16px 12px;
+      font-size: clamp(15px, 1.45vw, 18px);
+      line-height: 1.28;
+      text-align: justify;
+    }
+
+    .front .prompt {
+      margin: auto 0;
+      color: var(--dark-green);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .back {
+      padding: 16px 14px;
+      background: var(--dark-green);
+      color: #fff;
+      transform: rotateY(180deg);
+      overflow: hidden;
+    }
+
+    .back h2 {
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--green);
+    }
+
+    .back p {
+      margin: 10px 0 0;
+      font-size: clamp(15px, 1.45vw, 18px);
+      line-height: 1.28;
+      text-align: justify;
+    }
+
+    .card input:focus-visible + .card-inner {
+      outline: 3px solid rgba(37, 179, 75, .45);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .infographic { padding: 28px 16px 45px; }
+      .hero { width: 220px; }
+      .common-factor { margin-top: 42px; margin-bottom: 38px; }
+      .cards { margin-top: 18px; }
+      .card { height: 220px; }
+      .card:nth-child(2) { height: 185px; }
+      .card:nth-child(3) { height: 300px; }
+      .front h2 { padding: 10px 7px; font-size: 15px; }
+      .front p { padding: 12px 7px; font-size: 12px; }
+      .back { padding: 12px 8px; }
+      .back h2 { font-size: 15px; }
+      .back p { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="infographic" aria-label="Infografía interactiva sobre conducta suicida o suicidalidad">
+    <div class="content">
+      <section class="hero" aria-labelledby="title">
+        <div>
+          <h1 id="title">CONDUCTA SUICIDA<br>O SUICIDALIDAD</h1>
+          <p>Abarcan un amplio espectro de conductas, que van desde la ideación suicida, la elaboración de un plan, la obtención de los medios para hacerlo, hasta el acto consumado.</p>
+        </div>
+      </section>
+
+      <p class="common-factor"><strong>FACTOR COMÚN:</strong>un profundo dolor y malestar psicológico que impide continuar con la vida y del cual no se visualizan alternativas de salida o solución.</p>
+
+      <div class="timeline" aria-hidden="true">
+        <span class="node one"></span>
+        <span class="node two"></span>
+        <span class="node three"></span>
+      </div>
+
+      <section class="cards" aria-label="Factores de la conducta suicida">
+        <article class="card">
+          <input id="attempt" type="checkbox">
+          <label class="card-inner" for="attempt">
+            <span class="face front"><h2>INTENTO SUICIDA</h2><p class="prompt">Haz clic aquí para visualizar el contenido</p></span>
+            <span class="face back"><h2>INTENTO SUICIDA:</h2><p>Implica una serie de conductas o actos con los que una persona intencionalmente busca causarse daño hasta alcanzar la muerte, no logrando su consumación.</p></span>
+          </label>
+        </article>
+
+        <article class="card">
+          <input id="suicide" type="checkbox">
+          <label class="card-inner" for="suicide">
+            <span class="face front"><h2>SUICIDIO</h2><p class="prompt">Haz clic aquí para visualizar el contenido</p></span>
+            <span class="face back"><h2>SUICIDIO:</h2><p>Término que una persona hace de su vida en forma voluntaria e intencional.</p></span>
+          </label>
+        </article>
+
+        <article class="card">
+          <input id="ideation" type="checkbox">
+          <label class="card-inner" for="ideation">
+            <span class="face front"><h2>IDEACIÓN SUICIDA</h2><p class="prompt">Haz clic aquí para visualizar el contenido</p></span>
+            <span class="face back"><h2>IDEACIÓN SUICIDA:</h2><p>Pensamientos sobre voluntad de quitarse la vida, con o sin una planificación o método. Abarca un continuo que va desde pensamientos sobre la muerte o sobre morir ("me gustaría desaparecer"), deseos de morir ("ojalá estuviera muerto"), pensamientos de hacerse daño ("a veces tengo deseos de cortarme con un cuchillo"), hasta un plan específico para suicidarse ("me voy a tirar desde mi balcón").</p></span>
+          </label>
+        </article>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
