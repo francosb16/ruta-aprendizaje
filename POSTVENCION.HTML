@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan paso a paso</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e7e7e7;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .carousel {
+        width: 1220px;
+        border: 4px solid #0d3f79;
+        background: #f7f7f7;
+        box-shadow: 0 0 0 2px #f4f4f4 inset;
+        overflow: hidden;
+      }
+
+      .carousel-item {
+        min-height: 410px;
+        padding: 42px 110px 72px;
+        color: #fff;
+      }
+
+      .carousel-item.p { background: #0d6ea8; }
+      .carousel-item.o { background: #0c5d8c; }
+      .carousel-item.a { background: #0b5a8a; }
+      .carousel-item.c { background: #176b78; }
+      .carousel-item.s { background: #356b61; }
+
+      .slide-heading {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        min-height: 150px;
+        padding: 0 18px 22px;
+        position: relative;
+      }
+
+      .circle {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        border: 3px solid rgba(255,255,255,0.9);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        background: rgba(255,255,255,0.05);
+      }
+
+      .title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        text-align: center;
+        color: rgba(255,255,255,0.92);
+      }
+
+      .content {
+        background: rgba(247, 247, 247, 0.98);
+        padding: 0 0 4px;
+        color: #2d4d63;
+      }
+
+      .content ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .content li {
+        position: relative;
+        padding: 14px 18px 14px 42px;
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        border-top: 1px solid rgba(13, 63, 121, 0.12);
+      }
+
+      .content li::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        top: 18px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px rgba(255,255,255,0.9);
+      }
+
+      .carousel-item.p .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+      .carousel-item.o .content li::before { background: #f0b537; box-shadow: 0 0 0 2px rgba(240,181,55,0.2); }
+      .carousel-item.c .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+      .carousel-item.a .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+      .carousel-item.s .content li::before { background: #0d6ea8; box-shadow: 0 0 0 2px rgba(13,110,168,0.18); }
+
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 9%;
+      }
+
+      .carousel-indicators [data-bs-target] {
+        width: 34px;
+        height: 4px;
+        border: 0;
+      }
+
+      @media (max-width: 900px) {
+        .carousel {
+          width: 95%;
+        }
+
+        .carousel-item {
+          padding: 28px 48px 60px;
+        }
+
+        .circle {
+          width: 58px;
+          height: 58px;
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="carouselExample" class="carousel slide" data-bs-interval="false">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Responder y coordinar"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Comunicar y proteger"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Acompañar a las personas"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="3" aria-label="Cuidar y recuperar la comunidad"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="4" aria-label="Seguir y aprender"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item p active">
+          <div class="slide-heading">
+            <div class="circle">1</div>
+            <h3 class="title">Responder y coordinar</h3>
+            <p class="subtitle">0–72 horas</p>
+          </div>
+          <div class="content">
+            <ul>
+              <li>Activar el Protocolo de Crisis y definir roles operativos sin improvisar.</li>
+              <li>Coordinar acciones inmediatas entre los actores escolares y articularse con la red de salud local (CESFAM/COSAM).</li>
+              <li>Reducir la incertidumbre en las primeras 24 horas mediante una respuesta rápida e institucional.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="carousel-item o">
+          <div class="slide-heading">
+            <div class="circle">2</div>
+            <h3 class="title">Comunicar y proteger</h3>
+            <p class="subtitle">Información clara y cuidado prioritario</p>
+          </div>
+          <div class="content">
+            <ul>
+              <li>Informar con veracidad y claridad, exigiendo la <strong>autorización previa de la familia</strong>.</li>
+              <li>Prohibir especulaciones, detalles del método, notas de despedida o imágenes.</li>
+              <li>Identificar y priorizar la atención a personas vulnerables, familiares, amigos cercanos, testigos y quienes tengan antecedentes de riesgo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="carousel-item a">
+          <div class="slide-heading">
+            <div class="circle">3</div>
+            <h3 class="title">Acompañar a las personas</h3>
+            <p class="subtitle">Lenguaje seguro y apoyo emocional</p>
+          </div>
+          <div class="content">
+            <ul>
+              <li>Usar <em>“muerte por suicidio”</em> e <em>“intento de suicidio”</em>; evitar términos estigmatizantes como “cometió” o “fallido”.</li>
+              <li>Adecuar los mensajes: lenguaje concreto en niños de 4 a 7 años y diálogo directo, sin culpa, en adolescentes.</li>
+              <li>Orientar a las familias sobre señales de alerta y brindar contención emocional y orientación técnica.</li>
+              <li>Ofrecer espacios de cuidado al personal educativo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="carousel-item c">
+          <div class="slide-heading">
+            <div class="circle">4</div>
+            <h3 class="title">Cuidar y recuperar la comunidad</h3>
+            <p class="subtitle">Ritos seguros y retorno gradual</p>
+          </div>
+          <div class="content">
+            <ul>
+              <li>Promover asistencia voluntaria y homenajes sobrios, sin glorificar la muerte ni levantar altares o animitas.</li>
+              <li>Supervisar las redes sociales con moderación y establecer su cierre o límite a los 30 días.</li>
+              <li>Retomar gradualmente la rutina escolar con <strong>flexibilidad académica</strong>, sin suspender clases.</li>
+              <li>Proteger la salud mental docente y prevenir el desgaste del equipo antes de exigir reportes administrativos.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="carousel-item s">
+          <div class="slide-heading">
+            <div class="circle">5</div>
+            <h3 class="title">Seguir y aprender</h3>
+            <p class="subtitle">Acompañamiento y mejora continua</p>
+          </div>
+          <div class="content">
+            <ul>
+              <li>Mantener el acompañamiento a mediano plazo, monitoreando fechas clave, cumpleaños y aniversarios.</li>
+              <li>Evaluar periódicamente los factores de riesgo y realizar derivaciones oportunas a la red de salud.</li>
+              <li>Evaluar la respuesta institucional postcrisis para identificar mejoras y actualizar los planes de acción.</li>
+              <li>Mantener la capacitación continua.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
