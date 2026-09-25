@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Conceptualización clave | Conducta suicida</title>
+	<style>
+		:root {
+			--azul: #17324d;
+			--azul-profundo: #10283d;
+			--azul-claro: #eaf3f8;
+			--turquesa: #35b8b0;
+			--amarillo: #f5c451;
+			--texto: #263746;
+			--borde: #c9dbe4;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			background: linear-gradient(135deg, #f4f7f9 0%, #eaf3f8 100%);
+			color: var(--texto);
+			font-family: Arial, Helvetica, sans-serif;
+			line-height: 1.45;
+		}
+
+		.contenedor {
+			width: min(100%, 1050px);
+			margin: 0 auto;
+			padding: 18px 14px 30px;
+		}
+
+		.cabecera {
+			margin-bottom: 18px;
+			padding: 22px 24px;
+			border-radius: 16px;
+			background: var(--azul);
+			color: #fff;
+			box-shadow: 0 9px 25px rgba(23, 50, 77, .18);
+		}
+
+		.etiqueta {
+			display: inline-block;
+			margin-bottom: 8px;
+			padding: 5px 11px;
+			border-radius: 50px;
+			background: var(--amarillo);
+			color: var(--azul);
+			font-size: .72rem;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			margin: 0 0 7px;
+			font-size: clamp(1.65rem, 4vw, 2.35rem);
+			line-height: 1.1;
+		}
+
+		.cabecera p {
+			max-width: 760px;
+			margin: 0;
+			color: var(--azul-claro);
+		}
+
+		.instruccion {
+			margin: 0 0 14px;
+			font-size: 1rem;
+			font-weight: bold;
+		}
+
+		.tarjetas {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 14px;
+		}
+
+		.tarjeta {
+			min-height: 285px;
+			perspective: 1000px;
+		}
+
+		.tarjeta input {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			opacity: 0;
+		}
+
+		.tarjeta-interior {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 285px;
+			cursor: pointer;
+			transform-style: preserve-3d;
+			transition: transform .6s ease;
+		}
+
+		.tarjeta input:checked + .tarjeta-interior {
+			transform: rotateY(180deg);
+		}
+
+		.cara {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			flex-direction: column;
+			backface-visibility: hidden;
+			overflow: hidden;
+			border: 1px solid var(--borde);
+			border-radius: 10px;
+			box-shadow: 0 6px 16px rgba(23, 50, 77, .12);
+		}
+
+		.frente {
+			background: #fff;
+		}
+
+		.frente h2,
+		.reverso h2 {
+			margin: 0;
+			line-height: 1.15;
+		}
+
+		.frente h2 {
+			padding: 13px 15px;
+			background: var(--turquesa);
+			color: #fff;
+			font-size: 1.15rem;
+		}
+
+		.frente p {
+			margin: auto 0;
+			padding: 18px 15px;
+			color: var(--azul);
+			font-size: 1rem;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.frente p::before {
+			display: block;
+			margin-bottom: 8px;
+			color: var(--amarillo);
+			content: "↻";
+			font-size: 2rem;
+			line-height: 1;
+		}
+
+		.reverso {
+			padding: 17px 16px;
+			background: var(--azul-profundo);
+			color: #fff;
+			transform: rotateY(180deg);
+		}
+
+		.reverso h2 {
+			padding-bottom: 9px;
+			border-bottom: 2px solid var(--turquesa);
+			color: #fff;
+			font-size: 1.05rem;
+		}
+
+		.reverso p {
+			margin: 12px 0 0;
+			font-size: .98rem;
+		}
+
+		.tarjeta input:focus-visible + .tarjeta-interior {
+			outline: 3px solid rgba(53, 184, 176, .55);
+			outline-offset: 4px;
+		}
+
+		@media (max-width: 760px) {
+			.tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		}
+
+		@media (max-width: 520px) {
+			.contenedor { padding: 10px 9px 22px; }
+			.cabecera { padding: 18px 16px; }
+			.tarjetas { gap: 9px; }
+			.tarjeta { min-height: 270px; }
+			.tarjeta-interior { height: 270px; }
+			.frente h2 { font-size: 1.05rem; }
+			.reverso p { font-size: .94rem; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.tarjeta-interior { transition: none; }
+		}
+	</style>
+</head>
+<body>
+	<main class="contenedor">
+		<p class="instruccion">Selecciona una tarjeta para conocer su definición.</p>
+
+		<section class="tarjetas" aria-label="Conceptos clave sobre conducta suicida">
+			<article class="tarjeta">
+				<input id="tarjeta-suicidalidad" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-suicidalidad">
+					<span class="cara frente"><h2>Suicidalidad</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Suicidalidad</h2><p>Abarca un amplio espectro de manifestaciones que incluyen la ideación suicida, la elaboración de un plan, la obtención de medios y la acción de llevarlo a cabo. Tienen en común un profundo dolor y malestar psicológico que impide continuar con la vida y del cual no se visualizan alternativas de salida.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-ideacion" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-ideacion">
+					<span class="cara frente"><h2>Ideación suicida</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Ideación suicida</h2><p>Continuo que va desde pensamientos sobre la muerte ("me gustaría desaparecer"), deseos de morir ("ojalá estuviera muerto"), pensamientos de hacerse daño ("a veces tengo deseos de cortarme") hasta un plan específico ("me voy a tirar desde mi balcón").</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-intento" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-intento">
+					<span class="cara frente"><h2>Intento de suicidio</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Intento de suicidio</h2><p>Serie de conductas o actos con los que una persona intencionalmente busca causarse daño para alcanzar la muerte, no logrando su consumación.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-suicidio" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-suicidio">
+					<span class="cara frente"><h2>Suicidio</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Suicidio</h2><p>Término voluntario e intencional que una persona hace de su vida, caracterizado por la fatalidad y la premeditación.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-autolesion" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-autolesion">
+					<span class="cara frente"><h2>Autolesión</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Autolesión</h2><p>Lesiones autoinfligidas sin intencionalidad suicida manifiesta, cuyo objetivo es la regulación emocional y no la muerte.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-cluster" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-cluster">
+					<span class="cara frente"><h2>Clúster de intentos</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Clúster (conglomerado) de intentos</h2><p>Presencia de dos o más casos, probables o confirmados, cuya ocurrencia se comprueba en un mismo período de tiempo, área geográfica o con algún vínculo personal o de otra naturaleza.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-contagio" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-contagio">
+					<span class="cara frente"><h2>Efecto contagio</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Efecto contagio o transmisión</h2><p>Un suicidio o intento de suicidio gatilla la ocurrencia de otros. Generalmente se asocia a la consideración del suicidio como modelo imitable y como solución al sufrimiento de una persona.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-werther" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-werther">
+					<span class="cara frente"><h2>Efecto Werther</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Efecto Werther</h2><p>La cobertura repetitiva y continua de casos de suicidio, especialmente de celebridades o personas influyentes, puede generar efecto contagio en personas con vulnerabilidad previa.</p></span>
+				</label>
+			</article>
+			<article class="tarjeta">
+				<input id="tarjeta-postvencion" type="checkbox">
+				<label class="tarjeta-interior" for="tarjeta-postvencion">
+					<span class="cara frente"><h2>Postvención</h2><p>Selecciona para ver la definición</p></span>
+					<span class="cara reverso"><h2>Postvención del suicidio</h2><p>Conjunto de medidas de apoyo emocional y psicológico que se aplican tras un suicidio o intento para ayudar a los sobrevivientes, como familia, amigos y comunidad, a procesar el duelo de forma saludable y prevenir que se repitan conductas suicidas.</p></span>
+				</label>
+			</article>
+		</section>
+	</main>
+</body>
+</html>
