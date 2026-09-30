@@ -1,1 +1,173 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida - Ruta de Aprendizaje</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            padding: 60px 40px;
+            text-align: center;
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 100px;
+            margin: 30px auto;
+        }
+        
+        .content {
+            text-align: left;
+            margin: 30px 0;
+            line-height: 1.8;
+        }
+        
+        .content p {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            font-size: 0.95em;
+            color: #666;
+            margin: 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        footer {
+            margin-top: 50px;
+            color: #999;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Bienvenido!</h1>
+        <p class="subtitle">Ruta de Aprendizaje</p>
+        
+        <div class="divider"></div>
+        
+        <div class="content">
+            <p>
+                Nos complace recibirte en nuestra plataforma de aprendizaje. Este espacio está diseñado 
+                para ofrecerte una experiencia educativa integral y de calidad.
+            </p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>📚 Contenido Estructurado</h3>
+                    <p>Aprende siguiendo rutas educativas claras y progresivas, diseñadas para tu desarrollo.</p>
+                </div>
+                <div class="feature">
+                    <h3>🎯 Objetivos Claros</h3>
+                    <p>Define tus metas y trabaja hacia ellas con guías y recursos especializados.</p>
+                </div>
+                <div class="feature">
+                    <h3>💡 Recursos Prácticos</h3>
+                    <p>Accede a ejemplos, ejercicios y proyectos que complementan tu aprendizaje.</p>
+                </div>
+                <div class="feature">
+                    <h3>🚀 Crecimiento Continuo</h3>
+                    <p>Desarrolla tus habilidades a tu propio ritmo, en el orden que prefieras.</p>
+                </div>
+            </div>
+            
+            <p>
+                Nuestro compromiso es acompañarte en cada paso de tu jornada educativa, proporcionando 
+                las herramientas necesarias para que alcances tus objetivos de aprendizaje.
+            </p>
+        </div>
+        
+        <a href="#" class="cta-button">Comenzar Ahora</a>
+        
+        <footer>
+            <p>&copy; 2026 Ruta de Aprendizaje. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
