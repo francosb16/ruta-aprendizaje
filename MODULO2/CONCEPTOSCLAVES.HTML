@@ -178,21 +178,13 @@
 			.tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 		}
 
-		@media (max-width: 520px) {
+		@media (max-width: 640px) {
 			.contenedor { padding: 10px 9px 22px; }
 			.cabecera { padding: 18px 16px; }
-			.tarjetas { gap: 9px; }
+			.tarjetas { grid-template-columns: minmax(0, 1fr); gap: 9px; }
 			.tarjeta-interior { min-height: 270px; }
 			.frente h2 { font-size: 1.05rem; }
 			.reverso p { font-size: .94rem; }
-		}
-
-		@media (max-width: 760px) {
-			.tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		}
-
-		@media (max-width: 520px) {
-			.tarjetas { grid-template-columns: minmax(0, 1fr); }
 		}
 
 		@media (prefers-reduced-motion: reduce) {
