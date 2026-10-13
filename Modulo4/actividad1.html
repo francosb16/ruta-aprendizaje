@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#f3f5f1" />
+		<title>Actividad 1 | Niveles de cuidado</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--ink: #183249;
+				--navy: #082d55;
+				--muted: #536866;
+				--paper: #fffefa;
+				--canvas: #f3f5f1;
+				--accent: #b65c3c;
+			}
+
+			* { box-sizing: border-box; }
+
+			body {
+				margin: 0;
+				background: var(--canvas);
+				color: var(--ink);
+				font-family: Georgia, "Times New Roman", serif;
+			}
+
+			.page-shell {
+				width: min(100% - 40px, 980px);
+				margin: 0 auto;
+				padding: 48px 0 64px;
+			}
+
+			.intro {
+				max-width: 760px;
+				margin: 0 auto 30px;
+				text-align: center;
+			}
+
+			.eyebrow {
+				margin: 0 0 12px;
+				color: var(--accent);
+				font: 700 0.76rem/1.2 Arial, Helvetica, sans-serif;
+				text-transform: uppercase;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: clamp(2rem, 5vw, 3.1rem);
+				line-height: 1.08;
+				font-weight: 500;
+			}
+
+			.intro-copy {
+				max-width: 680px;
+				margin: 18px auto 0;
+				color: var(--muted);
+				font-size: 1.08rem;
+				line-height: 1.65;
+			}
+
+			.resource {
+				width: min(100%, 760px);
+				margin: 0 auto;
+			}
+
+			.worksheet {
+				width: 100%;
+				aspect-ratio: 210 / 297;
+				min-height: 700px;
+				padding: 34px 38px 25px;
+				display: flex;
+				flex-direction: column;
+				background: var(--navy);
+				color: white;
+				box-shadow: 0 16px 48px rgba(32, 59, 58, 0.12);
+			}
+
+			.sheet-heading {
+				margin: 0;
+				text-align: center;
+				font-size: 1.8rem;
+				line-height: 1.15;
+				font-weight: 500;
+			}
+
+			.sheet-rule {
+				width: 52px;
+				height: 3px;
+				margin: 14px auto 18px;
+				background: var(--accent);
+			}
+
+			.instructions {
+				margin: 0;
+				padding: 14px 17px;
+				border: 0;
+				border-radius: 4px;
+				background: #fff;
+				color: #243c52;
+				font: 0.88rem/1.5 Arial, Helvetica, sans-serif;
+			}
+
+			.care-map {
+				flex: 1;
+				min-height: 650px;
+				margin-top: 20px;
+				padding: 14px 16px;
+				display: grid;
+				grid-template-rows: repeat(3, minmax(0, 1fr));
+				gap: 10px;
+				border: 1px dashed rgba(255, 255, 255, 0.78);
+				border-radius: 6px;
+				background: var(--navy);
+			}
+
+			.care-level {
+				min-height: 0;
+				display: grid;
+				grid-template-rows: auto minmax(0, 1fr);
+				gap: 8px;
+			}
+
+			.care-level h3 {
+				margin: 0;
+				color: #fff;
+				font: 700 1rem/1.25 Arial, Helvetica, sans-serif;
+				text-align: center;
+			}
+
+			.level-prompt {
+				margin: 4px 0 0;
+				color: rgba(255, 255, 255, 0.82);
+				font: 0.78rem/1.4 Arial, Helvetica, sans-serif;
+				text-align: center;
+			}
+
+			.level-heading {
+				min-height: 0;
+			}
+
+			.answer-field,
+			.print-answer {
+				width: 100%;
+				min-height: 0;
+				padding: 14px 16px;
+				border: 2px solid transparent;
+				border-radius: 6px;
+				background: #fff;
+				color: #20384f;
+				font: 0.9rem/1.55 Arial, Helvetica, sans-serif;
+			}
+
+			.answer-field {
+				display: block;
+				width: 100%;
+				height: 100%;
+				resize: none;
+				outline: none;
+			}
+
+			.answer-field::placeholder {
+				color: #71808d;
+				opacity: 1;
+			}
+
+			.answer-field:focus {
+				border-color: #d88459;
+				box-shadow: 0 0 0 3px rgba(216, 132, 89, 0.2);
+			}
+
+			.print-answer {
+				display: none;
+				white-space: pre-wrap;
+				overflow-wrap: anywhere;
+			}
+
+			.source {
+				margin: 14px 0 0;
+				color: rgba(255, 255, 255, 0.76);
+				font: italic 0.68rem/1.4 Arial, Helvetica, sans-serif;
+			}
+
+			.download-row {
+				display: flex;
+				justify-content: center;
+				margin: 22px 0 0;
+			}
+
+			.download-button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				min-height: 48px;
+				padding: 0 20px;
+				border: 0;
+				border-radius: 4px;
+				background: var(--ink);
+				color: white;
+				font: 700 0.92rem/1 Arial, Helvetica, sans-serif;
+				cursor: pointer;
+			}
+
+			.download-button:hover { background: #315653; }
+			.download-button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+			.download-button svg { width: 18px; height: 18px; }
+
+			@media (max-width: 600px) {
+				.page-shell { width: min(100% - 24px, 460px); padding: 32px 0 42px; }
+				.intro { margin-bottom: 22px; }
+				.intro-copy { font-size: 1rem; }
+				.worksheet { min-height: 1100px; aspect-ratio: auto; padding: 25px 20px 20px; }
+				.sheet-heading { font-size: 1.55rem; }
+				.instructions { padding: 12px; font-size: 0.79rem; }
+				.care-map { min-height: 820px; margin-top: 16px; padding: 12px; gap: 12px; }
+				.care-level h3 { font-size: 0.92rem; }
+				.level-prompt { font-size: 0.73rem; }
+				.answer-field { padding: 12px; font-size: 0.86rem; }
+			}
+
+			@page {
+				size: A4 portrait;
+				margin: 12mm;
+			}
+
+			@media print {
+				body { background: white; }
+				.page-shell { width: 100%; margin: 0; padding: 0; }
+				.intro, .download-row { display: none !important; }
+				.resource { width: 100%; margin: 0; }
+				.worksheet {
+					width: 100%;
+					height: auto;
+					min-height: 273mm;
+					aspect-ratio: auto;
+					padding: 8mm 9mm 5mm;
+					box-shadow: none;
+					border-radius: 0;
+					break-inside: avoid;
+				}
+				.sheet-heading { font-size: 23pt; }
+				.sheet-rule { margin: 4mm auto 5mm; }
+				.instructions { padding: 4mm 5mm; font-size: 10pt; line-height: 1.4; }
+				.care-map {
+					min-height: 165mm;
+					margin-top: 5mm;
+					padding: 4mm;
+					gap: 3mm;
+					background: var(--navy);
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.care-level h3 { font-size: 10pt; }
+				.care-level { break-inside: avoid; }
+				.level-prompt { margin-top: 1mm; font-size: 8pt; }
+				.answer-field { display: none; }
+				.print-answer {
+					display: block;
+					padding: 4mm;
+					border: 1px solid #d9e0e5;
+					font-size: 9pt;
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+				.source { margin-top: 3mm; font-size: 8pt; }
+			}
+		</style>
+	</head>
+	<body>
+		<main class="page-shell">
+			
+			<section class="resource" aria-label="Ficha descargable: Niveles de cuidado">
+				<article class="worksheet" aria-labelledby="sheet-title">
+					<h2 class="sheet-heading" id="sheet-title">Niveles de cuidado</h2>
+					<div class="sheet-rule" aria-hidden="true"></div>
+					<p class="instructions">
+						Identifica y registra al menos tres acciones concretas para cada nivel de cuidado: cuidado individual, referido a prácticas que favorecen su propio bienestar; cuidado en equipo, relacionado con el apoyo y colaboración entre pares; y cuidado institucional, vinculado con las condiciones, medidas y acciones que la organización puede implementar para proteger el bienestar de sus equipos.
+					</p>
+
+					<div class="care-map" aria-label="Espacios para registrar acciones en tres niveles de cuidado">
+						<section class="care-level" aria-labelledby="personal-title">
+							<div class="level-heading">
+								<h3 id="personal-title">Cuidado Personal</h3>
+								<p class="level-prompt" id="personal-prompt">Prácticas que favorecen tu propio bienestar.</p>
+							</div>
+							<textarea class="answer-field" id="personal-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="personal-title" aria-describedby="personal-prompt" aria-required="true" data-print-target="personal-actions-print"></textarea>
+							<div class="print-answer" id="personal-actions-print" aria-hidden="true"></div>
+						</section>
+						<section class="care-level" aria-labelledby="mutual-title">
+							<div class="level-heading">
+								<h3 id="mutual-title">Cuidado Mutuo</h3>
+								<p class="level-prompt" id="mutual-prompt">Apoyo y colaboración entre pares.</p>
+							</div>
+							<textarea class="answer-field" id="mutual-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="mutual-title" aria-describedby="mutual-prompt" aria-required="true" data-print-target="mutual-actions-print"></textarea>
+							<div class="print-answer" id="mutual-actions-print" aria-hidden="true"></div>
+						</section>
+						<section class="care-level" aria-labelledby="institutional-title">
+							<div class="level-heading">
+								<h3 id="institutional-title">Cuidado Institucional</h3>
+								<p class="level-prompt" id="institutional-prompt">Condiciones y acciones que la organización puede implementar.</p>
+							</div>
+							<textarea class="answer-field" id="institutional-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="institutional-title" aria-describedby="institutional-prompt" aria-required="true" data-print-target="institutional-actions-print"></textarea>
+							<div class="print-answer" id="institutional-actions-print" aria-hidden="true"></div>
+						</section>
+					</div>
+
+					
+				</article>
+
+				<div class="download-row">
+					<button class="download-button" type="button" aria-label="Descargar la ficha completada como PDF">
+						<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M12 3v11m0 0 4-4m-4 4-4-4M5 16v4h14v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						Descargar mi ficha como PDF
+					</button>
+				</div>
+			</section>
+		</main>
+		<script>
+			const answerFields = Array.from(document.querySelectorAll(".answer-field"));
+
+			function syncPrintAnswers() {
+				answerFields.forEach((answerField) => {
+					const printAnswer = document.getElementById(answerField.dataset.printTarget);
+					printAnswer.textContent = answerField.value;
+				});
+			}
+
+			answerFields.forEach((answerField) => {
+				answerField.addEventListener("input", () => {
+					answerField.setCustomValidity("");
+					syncPrintAnswers();
+				});
+			});
+
+			window.addEventListener("beforeprint", syncPrintAnswers);
+
+			document.querySelector(".download-button").addEventListener("click", () => {
+				for (const answerField of answerFields) {
+					const actions = answerField.value.split(/\r?\n/).filter((action) => action.trim());
+					if (actions.length < 3) {
+						answerField.setCustomValidity("Registra al menos tres acciones concretas, una por línea.");
+						answerField.reportValidity();
+						answerField.focus();
+						return;
+					}
+					answerField.setCustomValidity("");
+				}
+
+				syncPrintAnswers();
+				window.print();
+			});
+		</script>
+	</body>
+</html>
