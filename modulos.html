@@ -30,11 +30,15 @@
         .unidad strong { display:block; margin-bottom:4px; color:var(--azul); font-size:.65rem; text-transform:uppercase; letter-spacing:.04em; }
         .unidad:hover strong, .unidad:focus-visible strong { color:var(--amarillo); }
         .unidad span { display:block; overflow-wrap:anywhere; font-size:medium; font-weight:bold; line-height:1.18; }
+        .unidad .unidad-duracion { display:block; margin-top:8px; color:#527080; font-size:.78rem; font-weight:bold; }
+        .unidad:hover .unidad-duracion, .unidad:focus-visible .unidad-duracion { color:#eaf3f8; }
         .instruccion { margin:7px 0 0; color:#5e6b75; font-size:medium; font-weight:normal; }
+        .estimacion { margin:5px 0 0; color:#667680; font-size:.82rem; }
         dialog { width:min(680px,calc(100% - 28px)); max-height:85vh; max-height:85dvh; padding:0; border:0; border-radius:16px; color:var(--texto); box-shadow:0 20px 60px rgba(0,0,0,.3); }
         dialog::backdrop { background:rgba(10,27,42,.65); backdrop-filter:blur(3px); }
         .modal-cabecera { padding:24px 28px; background:var(--azul); color:#fff; }
         .modal-cabecera h2 { margin:0; color:#fff; line-height:1.3; text-align:left; }
+        .modal-duracion { display:inline-block; margin:10px 0 0; padding:4px 9px; border-radius:20px; background:var(--amarillo); color:var(--azul); font-size:.8rem; font-weight:bold; }
         .modal-cuerpo { max-height:55vh; max-height:55dvh; overflow:auto; padding:24px 28px; background:#fff; }
         .modal-cuerpo h3 { margin:0 0 8px; color:var(--azul); font-size:.8rem; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
         .modal-cuerpo p { margin:0 0 22px; font-size:medium; font-weight:normal; }
@@ -72,17 +76,21 @@
             <h2 id="titulo-ruta">Explora las unidades</h2>
             <p class="ruta-intro">Haz clic en cada unidad para desplegar sus contenidos.</p>
             <div class="unidades">
-                <button class="unidad" type="button" data-unidad="1"><strong>Unidad 1</strong><span>Salud mental en comunidades educativas</span></button>
-                <button class="unidad" type="button" data-unidad="2"><strong>Unidad 2</strong><span>Prevención y actuación frente a la conducta suicida</span></button>
-                <button class="unidad" type="button" data-unidad="3"><strong>Unidad 3</strong><span>Protección de la salud mental en crisis y emergencias</span></button>
-                <button class="unidad" type="button" data-unidad="4"><strong>Unidad 4</strong><span>Cuidado mutuo y personal: cuidar a quienes cuidan</span></button>
+                <button class="unidad" type="button" data-unidad="1"><strong>Unidad 1</strong><span>Salud mental en comunidades educativas</span><small class="unidad-duracion"></small></button>
+                <button class="unidad" type="button" data-unidad="2"><strong>Unidad 2</strong><span>Prevención y actuación frente a la conducta suicida</span><small class="unidad-duracion"></small></button>
+                <button class="unidad" type="button" data-unidad="3"><strong>Unidad 3</strong><span>Protección de la salud mental en crisis y emergencias</span><small class="unidad-duracion"></small></button>
+                <button class="unidad" type="button" data-unidad="4"><strong>Unidad 4</strong><span>Cuidado mutuo y personal: cuidar a quienes cuidan</span><small class="unidad-duracion"></small></button>
             </div>
             <p class="instruccion">Selecciona una unidad para conocer sus contenidos principales.</p>
+            <p class="estimacion">Distribución horaria estimada según la extensión de los contenidos, actividades y recursos de cada unidad.</p>
         </section>
     </main>
 
     <dialog id="ventana-unidad" aria-labelledby="modal-titulo">
-        <div class="modal-cabecera"><h2 id="modal-titulo"></h2></div>
+        <div class="modal-cabecera">
+            <h2 id="modal-titulo"></h2>
+            <p class="modal-duracion" id="modal-duracion"></p>
+        </div>
         <div class="modal-cuerpo">
             <h3>Objetivo</h3>
             <p id="modal-objetivo"></p>
@@ -94,7 +102,7 @@
 
     <script>
         const unidades = {
-            1: { titulo:'Unidad 1: Salud mental en comunidades educativas', objetivo:'Identificar y analizar el marco normativo, las políticas públicas y los lineamientos de Mineduc y Minsal en salud mental y prevención del suicidio, para fundamentar el acompañamiento técnico a los establecimientos educacionales desde la gestión territorial.', contenidos:[
+            1: { titulo:'Unidad 1: Salud mental en comunidades educativas', horas:8, objetivo:'Identificar y analizar el marco normativo, las políticas públicas y los lineamientos de Mineduc y Minsal en salud mental y prevención del suicidio, para fundamentar el acompañamiento técnico a los establecimientos educacionales desde la gestión territorial.', contenidos:[
                     {
                         titulo:'1.1. Salud mental en la gestión territorial y apoyo a las comunidades educativas',
                         grupos:[{ titulo:'Preguntas clave para la reflexión' }]
@@ -135,7 +143,7 @@
                     'Recursos complementarios de la unidad 1',
                     'Evaluación Unidad 1'
                 ] },
-                2: { titulo:'Unidad 2: Prevención y actuación frente a la conducta suicida', objetivo:'Examinar la evidencia epidemiológica, comprender los fundamentos conceptuales de la conducta suicida y aplicar estrategias de prevención, protocolos de actuación y postvención.', contenidos:[
+                2: { titulo:'Unidad 2: Prevención y actuación frente a la conducta suicida', horas:14, objetivo:'Examinar la evidencia epidemiológica, comprender los fundamentos conceptuales de la conducta suicida y aplicar estrategias de prevención, protocolos de actuación y postvención.', contenidos:[
                     {
                         titulo:'2.1. Panorama actual de la salud mental y conducta suicida: indicadores y grupos de mayor riesgo',
                         grupos:[
@@ -224,7 +232,7 @@
                     'Recursos complementarios de la unidad 2',
                     'Evaluación Unidad 2'
                 ] },
-                3: { titulo:'Unidad 3: Protección de la salud mental en situaciones de crisis o emergencias', objetivo:'Entregar a los equipos de supervisión y directivos criterios técnicos para acompañar a los establecimientos en respuestas oportunas, seguras y coordinadas ante eventos críticos.', contenidos:[
+                3: { titulo:'Unidad 3: Protección de la salud mental en situaciones de crisis o emergencias', horas:10, objetivo:'Entregar a los equipos de supervisión y directivos criterios técnicos para acompañar a los establecimientos en respuestas oportunas, seguras y coordinadas ante eventos críticos.', contenidos:[
                     {
                         titulo:'3.1. ¿Cuándo estamos frente a una crisis?',
                         grupos:[
@@ -314,7 +322,7 @@
                     'Recursos complementarios de la unidad 3',
                     'Evaluación Unidad 3'
                 ] },
-                4: { titulo:'Unidad 4: Cuidado mutuo y personal — cuidar a quienes cuidan', objetivo:'Promover herramientas prácticas de autocuidado, contención entre pares y fortalecimiento del bienestar institucional para sostener la labor de acompañamiento.', contenidos:[
+                4: { titulo:'Unidad 4: Cuidado mutuo y personal — cuidar a quienes cuidan', horas:8, objetivo:'Promover herramientas prácticas de autocuidado, contención entre pares y fortalecimiento del bienestar institucional para sostener la labor de acompañamiento.', contenidos:[
                     {
                         titulo:'4.1. Cuidar a quienes cuidan: desafíos y señales de alerta',
                         grupos:[
@@ -372,9 +380,14 @@
         };
         const ventana = document.getElementById('ventana-unidad');
         const titulo = document.getElementById('modal-titulo');
+        const duracion = document.getElementById('modal-duracion');
         const objetivo = document.getElementById('modal-objetivo');
         const contenidos = document.getElementById('modal-contenidos');
         const cerrar = document.getElementById('cerrar-modal');
+        document.querySelectorAll('[data-unidad]').forEach((boton) => {
+            const unidad = unidades[boton.dataset.unidad];
+            boton.querySelector('.unidad-duracion').textContent = `${unidad.horas} horas estimadas`;
+        });
         const crearLista = (elementos) => {
             const lista = document.createElement('ul');
             elementos.forEach((elemento) => {
@@ -412,6 +425,7 @@
         document.querySelectorAll('[data-unidad]').forEach((boton) => boton.addEventListener('click', () => {
             const unidad = unidades[boton.dataset.unidad];
             titulo.textContent = unidad.titulo;
+            duracion.textContent = `${unidad.horas} horas estimadas`;
             objetivo.textContent = unidad.objetivo;
             contenidos.classList.toggle('contenido-lista', unidad.contenidos.some((contenido) => typeof contenido !== 'string'));
             contenidos.replaceChildren(...unidad.contenidos.map(crearContenido));
