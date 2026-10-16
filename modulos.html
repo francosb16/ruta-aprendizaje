@@ -7,7 +7,7 @@
     <style>
         :root { --azul:#17324d; --azul-claro:#eaf3f8; --turquesa:#35b8b0; --amarillo:#f5c451; --texto:#263746; }
         * { box-sizing:border-box; }
-        body { margin:0; background:#f4f7f9; color:var(--texto); font-family:Arial,Helvetica,sans-serif; font-size:medium; line-height:1.45; overflow-x:hidden; }
+        body { margin:0; background:#f4f7f9; color:var(--texto); font-family:Arial,Helvetica,sans-serif; font-size:medium; line-height:1.45; text-align:justify; overflow-x:hidden; }
         .contenedor { width:100%; max-width:1000px; margin:0 auto; padding:8px 10px 12px; }
         .cabecera, .proposito { max-width:840px; margin:0 auto; }
         .introduccion { display:grid; grid-template-columns:1.12fr .88fr; gap:10px; max-width:840px; margin:0 auto; align-items:stretch; }
@@ -18,66 +18,403 @@
         .proposito { padding:12px 16px; border-left:4px solid var(--turquesa); border-radius:8px; background:#fff; box-shadow:0 5px 18px rgba(23,50,77,.08); }
         .proposito h2, .ruta h2 { margin:0 0 5px; color:var(--azul); font-size:large; font-weight:bold; }
         .proposito p { margin:0; font-size:medium; font-weight:normal; }
+        .ficha-ruta { display:grid; grid-template-columns:1.4fr .6fr; gap:10px; max-width:840px; margin:10px auto 0; }
+        .ficha-ruta div { display:flex; flex-direction:column; gap:3px; padding:10px 14px; border-radius:8px; background:#fff; box-shadow:0 4px 14px rgba(23,50,77,.08); }
+        .ficha-ruta strong { color:var(--azul); font-size:.75rem; text-transform:uppercase; letter-spacing:.04em; }
+        .ficha-ruta span { font-size:medium; }
         .ruta { max-width:840px; margin:14px auto 0; }
         .ruta-intro { margin:0 0 7px; font-size:medium; font-weight:normal; }
-        .modulos { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
-        .modulo { min-height:96px; padding:11px 9px; border:0; border-radius:10px; background:#fff; color:var(--texto); text-align:left; cursor:pointer; box-shadow:0 4px 14px rgba(23,50,77,.1); transition:transform .2s,box-shadow .2s,background .2s; }
-        .modulo:hover, .modulo:focus-visible { transform:translateY(-4px); background:var(--azul); color:#fff; box-shadow:0 10px 24px rgba(23,50,77,.22); outline:3px solid rgba(53,184,176,.45); outline-offset:3px; }
-        .modulo strong { display:block; margin-bottom:4px; color:var(--azul); font-size:.65rem; text-transform:uppercase; letter-spacing:.04em; }
-        .modulo:hover strong, .modulo:focus-visible strong { color:var(--amarillo); }
-        .modulo span { display:block; font-size:medium; font-weight:bold; line-height:1.18; }
+        .unidades { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+        .unidad { min-height:96px; padding:11px 9px; border:0; border-radius:10px; background:#fff; color:var(--texto); text-align:justify; cursor:pointer; box-shadow:0 4px 14px rgba(23,50,77,.1); transition:transform .2s,box-shadow .2s,background .2s; }
+        .unidad:hover, .unidad:focus-visible { transform:translateY(-4px); background:var(--azul); color:#fff; box-shadow:0 10px 24px rgba(23,50,77,.22); outline:3px solid rgba(53,184,176,.45); outline-offset:3px; }
+        .unidad strong { display:block; margin-bottom:4px; color:var(--azul); font-size:.65rem; text-transform:uppercase; letter-spacing:.04em; }
+        .unidad:hover strong, .unidad:focus-visible strong { color:var(--amarillo); }
+        .unidad span { display:block; overflow-wrap:anywhere; font-size:medium; font-weight:bold; line-height:1.18; }
         .instruccion { margin:7px 0 0; color:#5e6b75; font-size:medium; font-weight:normal; }
-        dialog { width:min(680px,calc(100% - 28px)); max-height:85vh; padding:0; border:0; border-radius:16px; color:var(--texto); box-shadow:0 20px 60px rgba(0,0,0,.3); }
+        dialog { width:min(680px,calc(100% - 28px)); max-height:85vh; max-height:85dvh; padding:0; border:0; border-radius:16px; color:var(--texto); box-shadow:0 20px 60px rgba(0,0,0,.3); }
         dialog::backdrop { background:rgba(10,27,42,.65); backdrop-filter:blur(3px); }
         .modal-cabecera { padding:24px 28px; background:var(--azul); color:#fff; }
-        .modal-cabecera h2 { margin:0; color:#fff; line-height:1.3; }
-        .modal-cuerpo { max-height:55vh; overflow:auto; padding:24px 28px; background:#fff; }
-        .modal-cuerpo h3 { margin:0 0 8px; color:var(--azul); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; }
+        .modal-cabecera h2 { margin:0; color:#fff; line-height:1.3; text-align:left; }
+        .modal-cuerpo { max-height:55vh; max-height:55dvh; overflow:auto; padding:24px 28px; background:#fff; }
+        .modal-cuerpo h3 { margin:0 0 8px; color:var(--azul); font-size:.8rem; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
         .modal-cuerpo p { margin:0 0 22px; font-size:medium; font-weight:normal; }
         .modal-cuerpo ul { margin:0; padding-left:20px; }
-        .modal-pie { padding:16px 28px; border-top:1px solid #e1e7eb; background:#fff; text-align:right; }
+        .contenido-lista { display:grid; gap:12px; margin:0; padding:0 !important; list-style:none; }
+        .contenido-bloque { padding:12px 14px; border:1px solid #e1e7eb; border-left:4px solid var(--turquesa); border-radius:8px; background:#f8fafb; }
+        .contenido-bloque h4 { margin:0 0 5px; color:var(--azul); font-size:1rem; text-align:left; }
+        .contenido-bloque ul { display:grid; gap:8px; margin:9px 0 0; padding-left:20px; }
+        .contenido-bloque li { padding-left:2px; text-align:left; }
+        .contenido-subtitulo { display:block; margin-bottom:3px; color:var(--azul); font-weight:bold; }
+        .contenido-lista > li:not(.contenido-bloque) { text-align:left; }
+        .modal-pie { padding:16px 28px; border-top:1px solid #e1e7eb; background:#fff; text-align:justify; }
         .cerrar { padding:10px 18px; border:0; border-radius:7px; background:var(--turquesa); color:#fff; font-size:medium; font-weight:bold; cursor:pointer; }
         .cerrar:hover, .cerrar:focus-visible { background:#258e89; }
-        @media (max-width:840px) { .introduccion { display:block; } .proposito { margin-top:10px; } .modulos { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-        @media (max-width:500px) { .contenedor { padding:6px 8px 12px; } .cabecera { padding:14px 13px; } .etiqueta { margin-bottom:5px; font-size:small; } h1 { font-size:1.65rem; line-height:1.08; } .cabecera p { line-height:1.35; font-size:medium; } .proposito { padding:11px 12px; } .proposito h2, .ruta h2 { font-size:large; } .ruta { margin-top:13px; } .modulos { grid-template-columns:1fr; gap:7px; } .modulo { min-height:72px; padding:10px 11px; grid-column:auto; } .modulo span { font-size:medium; } .instruccion { font-size:medium; } .modal-cabecera, .modal-cuerpo, .modal-pie { padding-left:18px; padding-right:18px; } }
+        @media (max-width:840px) { .introduccion { display:block; } .proposito { margin-top:10px; } .unidades { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+        @media (max-width:500px) { .contenedor { padding:6px 8px 12px; } .cabecera { padding:14px 13px; } .etiqueta { margin-bottom:5px; font-size:small; } h1 { font-size:1.65rem; line-height:1.08; } .cabecera p { line-height:1.35; font-size:medium; } .proposito { padding:11px 12px; } .proposito h2, .ruta h2 { font-size:large; } .ficha-ruta { grid-template-columns:1fr; gap:7px; margin-top:7px; } .ficha-ruta div { padding:9px 12px; } .ruta { margin-top:13px; } .unidades { grid-template-columns:1fr; gap:7px; } .unidad { min-height:72px; padding:10px 11px; grid-column:auto; } .unidad span { font-size:medium; } .instruccion { font-size:medium; } .modal-cabecera, .modal-cuerpo, .modal-pie { padding-left:18px; padding-right:18px; } .modal-cuerpo { max-height:min(55dvh,calc(85dvh - 160px)); } }
     </style>
 </head>
 <body>
 
+    <main class="contenedor">
+        <section class="ficha-ruta" aria-label="Datos de la ruta">
+            <div>
+                <strong>Elaboración de contenidos</strong>
+                <span>María Consuelo Hayden Gallo (unidades 1, 2 y 3)</span>
+                <span>María Carolina Brieba Brieba (unidad 4)</span>
+            </div>
+            <div>
+                <strong>Duración total</strong>
+                <span>40 horas para las cuatro unidades</span>
+            </div>
+        </section>
 
         <section class="ruta" aria-labelledby="titulo-ruta">
             <h2 id="titulo-ruta">Explora las unidades</h2>
             <p class="ruta-intro">Haz clic en cada unidad para desplegar sus contenidos.</p>
-            <div class="modulos">
-                <button class="modulo" type="button" data-unidad="1"><strong>Unidad 1</strong><span>Salud mental en comunidades educativas</span></button>
-                <button class="modulo" type="button" data-unidad="2"><strong>Unidad 2</strong><span>Prevención y actuación frente a la conducta suicida</span></button>
-                <button class="modulo" type="button" data-unidad="3"><strong>Unidad 3</strong><span>Abordaje de crisis</span></button>
-                <button class="modulo" type="button" data-unidad="4"><strong>Unidad 4</strong><span>Cuidado personal, mutuo e institucional</span></button>
+            <div class="unidades">
+                <button class="unidad" type="button" data-unidad="1"><strong>Unidad 1</strong><span>Salud mental en comunidades educativas</span></button>
+                <button class="unidad" type="button" data-unidad="2"><strong>Unidad 2</strong><span>Prevención y actuación frente a la conducta suicida</span></button>
+                <button class="unidad" type="button" data-unidad="3"><strong>Unidad 3</strong><span>Protección de la salud mental en crisis y emergencias</span></button>
+                <button class="unidad" type="button" data-unidad="4"><strong>Unidad 4</strong><span>Cuidado mutuo y personal: cuidar a quienes cuidan</span></button>
             </div>
             <p class="instruccion">Selecciona una unidad para conocer sus contenidos principales.</p>
         </section>
+    </main>
 
     <dialog id="ventana-unidad" aria-labelledby="modal-titulo">
         <div class="modal-cabecera"><h2 id="modal-titulo"></h2></div>
-        <div class="modal-cuerpo"><h3>Contenidos</h3><ul id="modal-contenidos"></ul></div>
+        <div class="modal-cuerpo">
+            <h3>Objetivo</h3>
+            <p id="modal-objetivo"></p>
+            <h3>Contenidos</h3>
+            <ul id="modal-contenidos"></ul>
+        </div>
         <div class="modal-pie"><button class="cerrar" type="button" id="cerrar-modal">Cerrar</button></div>
     </dialog>
 
     <script>
         const unidades = {
-            1: { titulo:'Unidad 1: Salud mental en comunidades educativas', contenidos:['1.1. Salud mental en la gestión territorial y apoyo a las comunidades educativas','1.2. Marco normativo asociado al bienestar y la salud mental en comunidades educativas','1.3. Principios y enfoques del Mineduc para abordar salud mental en comunidades educativas','Recursos complementarios de la unidad 1','Evaluación Unidad 1'] },
-            2: { titulo:'Unidad 2: Prevención y actuación frente a la conducta suicida', contenidos:['2.1. Panorama actual de la salud mental y conducta suicida: indicadores y grupos de mayor riesgo','2.2. Elementos fundamentales para comprender la conducta suicida','2.3. Factores de riesgo, mitos sobre el suicidio, factores protectores y señales de alerta del comportamiento suicida','2.4. Estrategias de prevención del suicidio en comunidades educativas','2.5. Protocolos de actuación de las comunidades educativas frente a intento de suicidio y suicidio','2.6. Postvención para el acompañamiento de personas y la comunidad educativa','Recursos complementarios de la unidad 2','Evaluación Unidad 2'] },
-            3: { titulo:'Unidad 3: Abordaje de crisis', contenidos:['3.1. ¿Cuándo estamos frente a una crisis?','3.2. Organización y coordinación','Evaluación Unidad 3'] },
-            4: { titulo:'Unidad 4: Cuidado personal, mutuo e institucional', contenidos:['4.1. Cuidar a quienes cuidan: desafíos y señales de alerta','4.2. Herramientas de cuidado personal','4.3. Cuidado mutuo: sostenerse entre pares','4.4. Cuidado institucional y redes de apoyo','Finalización de curso'] }
+            1: { titulo:'Unidad 1: Salud mental en comunidades educativas', objetivo:'Identificar y analizar el marco normativo, las políticas públicas y los lineamientos de Mineduc y Minsal en salud mental y prevención del suicidio, para fundamentar el acompañamiento técnico a los establecimientos educacionales desde la gestión territorial.', contenidos:[
+                    {
+                        titulo:'1.1. Salud mental en la gestión territorial y apoyo a las comunidades educativas',
+                        grupos:[{ titulo:'Preguntas clave para la reflexión' }]
+                    },
+                    {
+                        titulo:'1.2. Marco normativo asociado al bienestar y la salud mental en comunidades educativas',
+                        grupos:[
+                            { titulo:'Ámbito Educativo', apartados:[
+                                'Circular 482, Superintendencia de Educación (2018)',
+                                'Política Nacional de Convivencia Educativa (2024-2030)',
+                                'Ley N° 21.778 | «Ley de los 60 minutos» (2025)',
+                                'Ley N° 21.809 | «Convivencia, buen trato y bienestar de las comunidades educativas» (2026)',
+                                'Ley N° 21.801 | «Regula el uso de dispositivos móviles» (2026)'
+                            ] },
+                            { titulo:'Ámbito Sociosanitario e Intersectorial', apartados:[
+                                'Política Nacional de Niñez y Adolescencia (2024-2032)',
+                                'Plan Nacional de Salud Mental (2017-2025)'
+                            ] },
+                        ]
+                    },
+                    {
+                        titulo:'1.3. Principios y enfoques del Mineduc para abordar la salud mental en comunidades educativas',
+                        grupos:[
+                            { titulo:'A. Principios de la Estrategia de Salud Mental con Comunidades Educativas' },
+                            { titulo:'B. El enfoque formativo en salud mental escolar', apartados:[
+                                'En lo curricular',
+                                'En lo comunitario',
+                                'En su carácter preventivo y promocional'
+                            ] },
+                            { titulo:'C. Modelo Escuela Total Multinivel (ETM)', apartados:[
+                                'Nivel 1 — Promoción universal',
+                                'Nivel 2 — Prevención focalizada',
+                                'Nivel 3 — Atención especializada'
+                            ] },
+                            { titulo:'Video-clase: Una estrategia multinivel para fortalecer el bienestar de la comunidad educativa' }
+                        ]
+                    },
+                    'Recursos complementarios de la unidad 1',
+                    'Evaluación Unidad 1'
+                ] },
+                2: { titulo:'Unidad 2: Prevención y actuación frente a la conducta suicida', objetivo:'Examinar la evidencia epidemiológica, comprender los fundamentos conceptuales de la conducta suicida y aplicar estrategias de prevención, protocolos de actuación y postvención.', contenidos:[
+                    {
+                        titulo:'2.1. Panorama actual de la salud mental y conducta suicida: indicadores y grupos de mayor riesgo',
+                        grupos:[
+                            { titulo:'Indicadores de salud mental en Chile', apartados:[
+                                'Encuesta Nacional de Polivictimización (2023)',
+                                'Encuesta Longitudinal de Primera Infancia (2024)',
+                                'Ansiedad, depresión y malestar en niños, niñas y adolescentes',
+                                'Brecha de género en satisfacción personal e indicadores de salud mental'
+                            ] },
+                            { titulo:'Recurso de aprendizaje: situación epidemiológica y estacionalidad de la conducta suicida' }
+                        ]
+                    },
+                    {
+                        titulo:'2.2. Elementos fundamentales para comprender la conducta suicida',
+                        grupos:[
+                            { titulo:'Conceptos clave', apartados:[
+                                'Suicidalidad e ideación suicida',
+                                'Intento de suicidio y suicidio',
+                                'Autolesiones sin intención suicida',
+                                'Clúster o conglomerado',
+                                'Efecto contagio y Efecto Werther',
+                                'Postvención'
+                            ] },
+                            { titulo:'Actividad práctica: análisis de casos en salud mental' },
+                            { titulo:'Recurso audiovisual: «Previniendo el suicidio en estudiantes» (17 min)' }
+                        ]
+                    },
+                    {
+                        titulo:'2.3. Factores de riesgo, mitos, factores protectores y señales de alerta',
+                        grupos:[
+                            { titulo:'Factores de riesgo para la conducta suicida en estudiantes' },
+                            { titulo:'Mitos frente a la conducta suicida' },
+                            { titulo:'Factores protectores en la etapa escolar' },
+                            { titulo:'Señales de alerta ante el suicidio' },
+                            { titulo:'Infografía: factores de riesgo para la conducta suicida en estudiantes' },
+                            { titulo:'Actividad práctica: identificación de factores y señales de alerta — caso Sofía' }
+                        ]
+                    },
+                    {
+                        titulo:'2.4. Estrategias de prevención del suicidio en comunidades educativas',
+                        grupos:[
+                            { titulo:'Video-clase: abordaje integral del bienestar y la salud mental' },
+                            { titulo:'Enfoque institucional', apartados:[
+                                'Integración de la salud mental en el Proyecto Educativo Institucional',
+                                'Inclusión en protocolos y reglamento interno'
+                            ] },
+                            { titulo:'Instrumentos de gestión para la integración pedagógica', apartados:[
+                                'Plan de Gestión de la Convivencia Educativa y PME',
+                                'Planes de Formación Ciudadana, Afectividad, Sexualidad y Género, Inclusión Educativa y PISE'
+                            ] },
+                            { titulo:'Seis dimensiones de la estrategia preventiva', apartados:[
+                                'Clima escolar protector',
+                                'Prevención de problemas y trastornos de salud mental',
+                                'Educación y sensibilización sobre suicidio',
+                                'Detección de estudiantes en riesgo: Gatekeepers y algoritmo de 4 pasos',
+                                'Protocolos de actuación y postvención',
+                                'Coordinación y acceso a la red de salud'
+                            ] }
+                        ]
+                    },
+                    {
+                        titulo:'2.5. Protocolos de actuación frente al intento de suicidio y suicidio',
+                        grupos:[
+                            { titulo:'Pautas para el manejo de la conducta suicida' },
+                            { titulo:'Podcasts: protocolos de actuación 1 y 2' },
+                            { titulo:'Protocolo de Acción 24 Horas: articulación intersectorial MINEDUC-MINSAL' },
+                            { titulo:'Preguntas frecuentes del Protocolo 24 Horas' },
+                            { titulo:'Instrumento de levantamiento DEPROV — Protocolo de Actuación' },
+                            { titulo:'Flujograma de articulación territorial MINSAL-MINEDUC' }
+                        ]
+                    },
+                    {
+                        titulo:'2.6. Postvención para el acompañamiento de personas y la comunidad educativa',
+                        grupos:[
+                            { titulo:'Etapas de la postvención', apartados:[
+                                'Responder y coordinar (0-72 horas)',
+                                'Comunicar y proteger',
+                                'Acompañar con lenguaje seguro',
+                                'Cuidar y recuperar la comunidad mediante ritos seguros',
+                                'Realizar seguimiento y aprendizaje a mediano plazo'
+                            ] },
+                            { titulo:'Recurso complementario: guía ESTAR de postvención' },
+                            { titulo:'Recurso: cómo hablar del suicidio en forma segura' }
+                        ]
+                    },
+                    'Recursos complementarios de la unidad 2',
+                    'Evaluación Unidad 2'
+                ] },
+                3: { titulo:'Unidad 3: Protección de la salud mental en situaciones de crisis o emergencias', objetivo:'Entregar a los equipos de supervisión y directivos criterios técnicos para acompañar a los establecimientos en respuestas oportunas, seguras y coordinadas ante eventos críticos.', contenidos:[
+                    {
+                        titulo:'3.1. ¿Cuándo estamos frente a una crisis?',
+                        grupos:[
+                            { titulo:'Características de una crisis', apartados:[
+                                'Aparición súbita',
+                                'Desbordamiento de los recursos habituales',
+                                'Carácter transitorio',
+                                'Impacto en las personas y la comunidad educativa'
+                            ] },
+                            { titulo:'Reacciones esperables ante situaciones críticas', apartados:[
+                                'Miedo, angustia o llanto',
+                                'Dificultades para concentrarse',
+                                'Cambios en el sueño o el apetito',
+                                'Irritabilidad o retraimiento',
+                                'Síntomas físicos, como dolor de cabeza o náuseas'
+                            ] },
+                            { titulo:'Necesidades de apoyo y modelo escalonado', apartados:[
+                                'Necesidades básicas y emocionales para toda la comunidad',
+                                'Apoyo familiar y comunitario (60-70%)',
+                                'Apoyo psicosocial no especializado (20-30%)',
+                                'Atención clínica especializada (5-10%)'
+                            ] },
+                            { titulo:'¿Cuándo se necesita atención especializada?', apartados:[
+                                'Derivación urgente: riesgo de hacerse daño o dañar a otras personas, pensamientos o intentos suicidas, alucinaciones o disociación.',
+                                'Atención oportuna: retraimiento extremo y persistente, crisis de angustia que no ceden, autolesiones o cambios conductuales sostenidos.'
+                            ] },
+                            { titulo:'El equipo educativo: primera línea de protección', apartados:[
+                                'Presencia y vínculo',
+                                'Contención inmediata',
+                                'Detección oportuna y derivación'
+                            ] },
+                            { titulo:'Intervenciones contraindicadas', apartados:[
+                                'Debriefing psicológico grupal inmediato',
+                                'Simulacros vívidos sin resguardos',
+                                'Asambleas o reuniones masivas para relatar lo ocurrido',
+                                'Difusión de detalles del evento o de las personas involucradas',
+                                'Retorno a clases sin preparación',
+                                'Patologización de reacciones normales'
+                            ] },
+                            { titulo:'Actividad práctica: Desafío de Conceptos — Gestión de Crisis Escolares' }
+                        ]
+                    },
+                    {
+                        titulo:'3.2. Organización y coordinación',
+                        grupos:[
+                            { titulo:'Organización de la respuesta y rol de la supervisión', apartados:[
+                                'Preparación previa: acuerdos, roles y protocolos',
+                                'Coordinación durante la crisis con la red de salud y las autoridades',
+                                'Activación del Protocolo de Acción 24 Horas cuando corresponda'
+                            ] },
+                            { titulo:'Preguntas clave para el equipo directivo', apartados:[
+                                'Quién lidera la respuesta y acompaña a las personas afectadas',
+                                'Quién se comunica con las familias',
+                                'Quién coordina con redes externas y autoridades',
+                                'Cómo circula la información para evitar rumores',
+                                'Criterios para suspender las clases y planificar el retorno'
+                            ] },
+                            { titulo:'Comunicación oportuna y segura', apartados:[
+                                'Sí: información confirmada, tono empático y mensajes adecuados para cada público.',
+                                'Sí: coordinación entre vocerías, lenguaje seguro y difusión de canales de ayuda.',
+                                'No: lenguaje sensacionalista, especulaciones o información no confirmada.',
+                                'No: detalles del evento, del método o del agresor; invalidación de las emociones o asociación entre violencia y trastorno mental.'
+                            ] },
+                            { titulo:'Primeros Auxilios Psicológicos (PAP)', apartados:[
+                                'Preparar',
+                                'Observar',
+                                'Escuchar',
+                                'Conectar'
+                            ] },
+                            { titulo:'Sostener la recuperación en el tiempo', apartados:[
+                                'Rutina como protección y retorno planificado a clases',
+                                'Seguimiento de quienes estuvieron más expuestos',
+                                'Cuidado y apoyo al equipo educativo',
+                                'Coordinación con la red local de salud'
+                            ] },
+                            { titulo:'Actividad práctica: Secuencia de Organización y Coordinación ante Eventos Críticos' },
+                            { titulo:'Webinar: Protección de la salud mental en situaciones de crisis o emergencias' },
+                            { titulo:'En síntesis', apartados:[
+                                'La comunidad es la primera base de apoyo y recuperación.',
+                                'El equipo educativo puede responder sin esperar la llegada de un especialista.',
+                                'Algunas acciones bienintencionadas pueden causar daño.',
+                                'Conocer las señales de alerta permite derivar oportunamente.',
+                                'Existen recursos y redes de apoyo disponibles.'
+                            ] }
+                        ]
+                    },
+                    'Recursos complementarios de la unidad 3',
+                    'Evaluación Unidad 3'
+                ] },
+                4: { titulo:'Unidad 4: Cuidado mutuo y personal — cuidar a quienes cuidan', objetivo:'Promover herramientas prácticas de autocuidado, contención entre pares y fortalecimiento del bienestar institucional para sostener la labor de acompañamiento.', contenidos:[
+                    {
+                        titulo:'4.1. Cuidar a quienes cuidan: desafíos y señales de alerta',
+                        grupos:[
+                            { titulo:'Dimensiones del impacto emocional', apartados:[
+                                'Cognitiva',
+                                'Emocional',
+                                'Física',
+                                'Conductual'
+                            ] },
+                            { titulo:'Reacciones esperables a corto plazo y señales de alerta a largo plazo' }
+                        ]
+                    },
+                    {
+                        titulo:'4.2. Herramientas de cuidado personal',
+                        grupos:[
+                            { titulo:'A. Pausas corporales y regulación', apartados:[
+                                'Respiración guiada',
+                                'Sonido de agua de río para relajación',
+                                'Práctica de relajación',
+                                'Meditación guiada'
+                            ] },
+                            { titulo:'B. Límites protectores y trato compasivo hacia uno mismo' }
+                        ]
+                    },
+                    {
+                        titulo:'4.3. Cuidado mutuo: sostenerse entre pares',
+                        grupos:[
+                            { titulo:'Estrategias de cuidado en equipo', apartados:[
+                                'Espacios breves de conversación',
+                                'Distribución equilibrada de la carga',
+                                'Escucha sin juicio',
+                                'Solicitud oportuna de apoyo'
+                            ] },
+                            { titulo:'Actividad: Pausa compartida de supervisión' }
+                        ]
+                    },
+                    {
+                        titulo:'4.4. Cuidado institucional y redes de apoyo',
+                        grupos:[
+                            { titulo:'Estrategias de cuidado institucional', apartados:[
+                                'Claridad de roles y responsabilidades',
+                                'Distribución equilibrada de la carga',
+                                'Espacios de escucha y reflexión',
+                                'Cultura de colaboración'
+                            ] },
+                            { titulo:'Redes de apoyo', apartados:[
+                                'Redes de apoyo de la familia, amistades, comunidad y lugar de trabajo o estudios',
+                                'Cartilla «Redes de Apoyo» — Núcleo Milenio Imhay',
+                                'Actividad 3. Mi mapa de redes de apoyo'
+                            ] }
+                        ]
+                    },
+                    'Finalización del curso'
+                ] }
         };
         const ventana = document.getElementById('ventana-unidad');
         const titulo = document.getElementById('modal-titulo');
+        const objetivo = document.getElementById('modal-objetivo');
         const contenidos = document.getElementById('modal-contenidos');
         const cerrar = document.getElementById('cerrar-modal');
+        const crearLista = (elementos) => {
+            const lista = document.createElement('ul');
+            elementos.forEach((elemento) => {
+                const item = document.createElement('li');
+                if (typeof elemento === 'string') {
+                    item.textContent = elemento;
+                } else {
+                    const subtitulo = document.createElement('span');
+                    subtitulo.className = 'contenido-subtitulo';
+                    subtitulo.textContent = elemento.titulo;
+                    item.append(subtitulo);
+                    if (elemento.apartados) item.append(crearLista(elemento.apartados));
+                    if (elemento.grupos) item.append(crearLista(elemento.grupos));
+                }
+                lista.append(item);
+            });
+            return lista;
+        };
+        const crearContenido = (contenido) => {
+            const item = document.createElement('li');
+            if (typeof contenido === 'string') {
+                item.textContent = contenido;
+                return item;
+            }
+            item.className = 'contenido-bloque';
+            if (contenido.titulo) {
+                const encabezado = document.createElement('h4');
+                encabezado.textContent = contenido.titulo;
+                item.append(encabezado);
+            }
+            if (contenido.apartados) item.append(crearLista(contenido.apartados));
+            if (contenido.grupos) item.append(crearLista(contenido.grupos));
+            return item;
+        };
         document.querySelectorAll('[data-unidad]').forEach((boton) => boton.addEventListener('click', () => {
             const unidad = unidades[boton.dataset.unidad];
             titulo.textContent = unidad.titulo;
-            contenidos.replaceChildren(...unidad.contenidos.map((contenido) => { const item = document.createElement('li'); item.textContent = contenido; return item; }));
+            objetivo.textContent = unidad.objetivo;
+            contenidos.classList.toggle('contenido-lista', unidad.contenidos.some((contenido) => typeof contenido !== 'string'));
+            contenidos.replaceChildren(...unidad.contenidos.map(crearContenido));
             ventana.showModal();
             cerrar.focus();
         }));
