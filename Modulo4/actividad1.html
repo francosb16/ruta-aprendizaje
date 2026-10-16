@@ -23,6 +23,7 @@
 				background: var(--canvas);
 				color: var(--ink);
 				font-family: Georgia, "Times New Roman", serif;
+				font-size: 14pt;
 			}
 
 			.page-shell {
@@ -40,7 +41,7 @@
 			.eyebrow {
 				margin: 0 0 12px;
 				color: var(--accent);
-				font: 700 0.76rem/1.2 Arial, Helvetica, sans-serif;
+				font: 700 14pt/1.2 Arial, Helvetica, sans-serif;
 				text-transform: uppercase;
 			}
 
@@ -55,8 +56,9 @@
 				max-width: 680px;
 				margin: 18px auto 0;
 				color: var(--muted);
-				font-size: 1.08rem;
+				font-size: 14pt;
 				line-height: 1.65;
+				text-align: justify;
 			}
 
 			.resource {
@@ -66,8 +68,8 @@
 
 			.worksheet {
 				width: 100%;
-				aspect-ratio: 210 / 297;
-				min-height: 700px;
+				aspect-ratio: auto;
+				min-height: 0;
 				padding: 34px 38px 25px;
 				display: flex;
 				flex-direction: column;
@@ -98,63 +100,69 @@
 				border-radius: 4px;
 				background: #fff;
 				color: #243c52;
-				font: 0.88rem/1.5 Arial, Helvetica, sans-serif;
+				font: 14pt/1.5 Arial, Helvetica, sans-serif;
+				text-align: justify;
 			}
 
 			.care-map {
-				flex: 1;
-				min-height: 650px;
+				container-type: inline-size;
+				flex: 0 0 auto;
 				margin-top: 20px;
-				padding: 14px 16px;
-				display: grid;
-				grid-template-rows: repeat(3, minmax(0, 1fr));
-				gap: 10px;
-				border: 1px dashed rgba(255, 255, 255, 0.78);
-				border-radius: 6px;
-				background: var(--navy);
+				display: flex;
+				justify-content: center;
 			}
 
 			.care-level {
-				min-height: 0;
-				display: grid;
-				grid-template-rows: auto minmax(0, 1fr);
-				gap: 8px;
+				width: 100%;
+				padding: 20px;
+				border: 1px dashed rgba(255, 255, 255, 0.85);
+				border-radius: 48px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 22px;
 			}
 
-			.care-level h3 {
+			.care-level--mutual {
+				width: 94%;
+			}
+
+			.care-level--personal {
+				width: 100%;
+			}
+
+			.level-content {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 12px;
+			}
+
+			.level-content h3 {
 				margin: 0;
 				color: #fff;
-				font: 700 1rem/1.25 Arial, Helvetica, sans-serif;
+				font: 700 14pt/1.25 Arial, Helvetica, sans-serif;
 				text-align: center;
-			}
-
-			.level-prompt {
-				margin: 4px 0 0;
-				color: rgba(255, 255, 255, 0.82);
-				font: 0.78rem/1.4 Arial, Helvetica, sans-serif;
-				text-align: center;
-			}
-
-			.level-heading {
-				min-height: 0;
 			}
 
 			.answer-field,
 			.print-answer {
-				width: 100%;
-				min-height: 0;
-				padding: 14px 16px;
-				border: 2px solid transparent;
+				width: min(70cqw, 520px);
+				max-width: 100%;
+				height: 110px;
+				min-height: 110px;
+				padding: 10px 12px;
+				border: 1px solid rgba(255, 255, 255, 0.72);
 				border-radius: 6px;
-				background: #fff;
+				background: rgba(255, 255, 255, 0.96);
 				color: #20384f;
-				font: 0.9rem/1.55 Arial, Helvetica, sans-serif;
+				font: 14pt/1.45 Arial, Helvetica, sans-serif;
+				text-align: justify;
 			}
 
 			.answer-field {
 				display: block;
-				width: 100%;
-				height: 100%;
 				resize: none;
 				outline: none;
 			}
@@ -162,6 +170,7 @@
 			.answer-field::placeholder {
 				color: #71808d;
 				opacity: 1;
+				text-align: left;
 			}
 
 			.answer-field:focus {
@@ -178,7 +187,8 @@
 			.source {
 				margin: 14px 0 0;
 				color: rgba(255, 255, 255, 0.76);
-				font: italic 0.68rem/1.4 Arial, Helvetica, sans-serif;
+				font: italic 14pt/1.4 Arial, Helvetica, sans-serif;
+				text-align: justify;
 			}
 
 			.download-row {
@@ -198,8 +208,9 @@
 				border-radius: 4px;
 				background: var(--ink);
 				color: white;
-				font: 700 0.92rem/1 Arial, Helvetica, sans-serif;
+				font: 700 14pt/1.2 Arial, Helvetica, sans-serif;
 				cursor: pointer;
+				text-align: justify;
 			}
 
 			.download-button:hover { background: #315653; }
@@ -209,14 +220,16 @@
 			@media (max-width: 600px) {
 				.page-shell { width: min(100% - 24px, 460px); padding: 32px 0 42px; }
 				.intro { margin-bottom: 22px; }
-				.intro-copy { font-size: 1rem; }
-				.worksheet { min-height: 1100px; aspect-ratio: auto; padding: 25px 20px 20px; }
+				.intro-copy { font-size: 14pt; }
+				.worksheet { min-height: 0; aspect-ratio: auto; padding: 25px 20px 20px; }
 				.sheet-heading { font-size: 1.55rem; }
-				.instructions { padding: 12px; font-size: 0.79rem; }
-				.care-map { min-height: 820px; margin-top: 16px; padding: 12px; gap: 12px; }
-				.care-level h3 { font-size: 0.92rem; }
-				.level-prompt { font-size: 0.73rem; }
-				.answer-field { padding: 12px; font-size: 0.86rem; }
+				.instructions { padding: 12px; font-size: 14pt; }
+				.care-map { margin-top: 16px; }
+				.care-level { border-radius: 34px; }
+				.care-level { padding: 14px; gap: 18px; }
+				.care-level--mutual { width: 100%; }
+				.care-level--personal { width: 100%; }
+				.answer-field { padding: 8px; font-size: 14pt; }
 			}
 
 			@page {
@@ -241,29 +254,27 @@
 				}
 				.sheet-heading { font-size: 23pt; }
 				.sheet-rule { margin: 4mm auto 5mm; }
-				.instructions { padding: 4mm 5mm; font-size: 10pt; line-height: 1.4; }
+				.instructions { padding: 4mm 5mm; font-size: 14pt; line-height: 1.5; }
 				.care-map {
-					min-height: 165mm;
 					margin-top: 5mm;
-					padding: 4mm;
-					gap: 3mm;
 					background: var(--navy);
 					-webkit-print-color-adjust: exact;
 					print-color-adjust: exact;
 				}
-				.care-level h3 { font-size: 10pt; }
-				.care-level { break-inside: avoid; }
-				.level-prompt { margin-top: 1mm; font-size: 8pt; }
+				.care-level { break-inside: avoid; padding: 4mm; gap: 4mm; }
+				.care-level--mutual { width: 94%; }
+				.care-level--personal { width: 100%; }
+				.level-content { gap: 2mm; }
+				.answer-field,
+				.print-answer { width: min(70cqw, 520px); height: 29mm; min-height: 29mm; }
 				.answer-field { display: none; }
 				.print-answer {
 					display: block;
-					padding: 4mm;
-					border: 1px solid #d9e0e5;
-					font-size: 9pt;
+					font-size: 14pt;
 					-webkit-print-color-adjust: exact;
 					print-color-adjust: exact;
 				}
-				.source { margin-top: 3mm; font-size: 8pt; }
+				.source { margin-top: 3mm; font-size: 14pt; }
 			}
 		</style>
 	</head>
@@ -279,29 +290,26 @@
 					</p>
 
 					<div class="care-map" aria-label="Espacios para registrar acciones en tres niveles de cuidado">
-						<section class="care-level" aria-labelledby="personal-title">
-							<div class="level-heading">
-								<h3 id="personal-title">Cuidado Personal</h3>
-								<p class="level-prompt" id="personal-prompt">Prácticas que favorecen tu propio bienestar.</p>
-							</div>
-							<textarea class="answer-field" id="personal-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="personal-title" aria-describedby="personal-prompt" aria-required="true" data-print-target="personal-actions-print"></textarea>
-							<div class="print-answer" id="personal-actions-print" aria-hidden="true"></div>
-						</section>
-						<section class="care-level" aria-labelledby="mutual-title">
-							<div class="level-heading">
-								<h3 id="mutual-title">Cuidado Mutuo</h3>
-								<p class="level-prompt" id="mutual-prompt">Apoyo y colaboración entre pares.</p>
-							</div>
-							<textarea class="answer-field" id="mutual-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="mutual-title" aria-describedby="mutual-prompt" aria-required="true" data-print-target="mutual-actions-print"></textarea>
-							<div class="print-answer" id="mutual-actions-print" aria-hidden="true"></div>
-						</section>
-						<section class="care-level" aria-labelledby="institutional-title">
-							<div class="level-heading">
+						<section class="care-level care-level--institutional" aria-labelledby="institutional-title">
+							<section class="care-level care-level--mutual" aria-labelledby="mutual-title">
+								<section class="care-level care-level--personal" aria-labelledby="personal-title">
+									<div class="level-content">
+										<textarea class="answer-field" id="personal-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="personal-title" aria-required="true" data-print-target="personal-actions-print"></textarea>
+										<div class="print-answer" id="personal-actions-print" aria-hidden="true"></div>
+										<h3 id="personal-title">Cuidado Personal</h3>
+									</div>
+								</section>
+								<div class="level-content">
+									<textarea class="answer-field" id="mutual-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="mutual-title" aria-required="true" data-print-target="mutual-actions-print"></textarea>
+									<div class="print-answer" id="mutual-actions-print" aria-hidden="true"></div>
+									<h3 id="mutual-title">Cuidado Mutuo</h3>
+								</div>
+							</section>
+							<div class="level-content">
+								<textarea class="answer-field" id="institutional-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="institutional-title" aria-required="true" data-print-target="institutional-actions-print"></textarea>
+								<div class="print-answer" id="institutional-actions-print" aria-hidden="true"></div>
 								<h3 id="institutional-title">Cuidado Institucional</h3>
-								<p class="level-prompt" id="institutional-prompt">Condiciones y acciones que la organización puede implementar.</p>
 							</div>
-							<textarea class="answer-field" id="institutional-actions" rows="5" placeholder="Escribe al menos tres acciones, una por línea." aria-labelledby="institutional-title" aria-describedby="institutional-prompt" aria-required="true" data-print-target="institutional-actions-print"></textarea>
-							<div class="print-answer" id="institutional-actions-print" aria-hidden="true"></div>
 						</section>
 					</div>
 
