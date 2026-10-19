@@ -17,12 +17,22 @@
 		.nombre { min-width:0; }
 		.nombre strong { display:block; overflow-wrap:anywhere; color:var(--azul); font-size:.94rem; }
 		.nombre span { display:block; margin-top:2px; color:#687681; font-size:.78rem; }
-		.descargar { display:inline-flex; align-items:center; justify-content:center; min-width:104px; padding:9px 12px; border-radius:7px; background:var(--turquesa); color:#fff; font-size:.8rem; font-weight:bold; text-decoration:none; }
-		.descargar:hover, .descargar:focus-visible { background:#258e89; outline:3px solid rgba(53,184,176,.3); outline-offset:2px; }
+		.acciones { display:flex; align-items:center; gap:8px; }
+		.acciones a, .acciones button { display:inline-flex; align-items:center; justify-content:center; min-width:104px; padding:9px 12px; border:0; border-radius:7px; color:#fff; font-family:inherit; font-size:.8rem; font-weight:bold; text-decoration:none; cursor:pointer; }
+		.previsualizar { background:var(--azul); }
+		.descargar { background:var(--turquesa); }
+		.acciones a:hover, .acciones a:focus-visible, .acciones button:hover, .acciones button:focus-visible { filter:brightness(.88); outline:3px solid rgba(53,184,176,.3); outline-offset:2px; }
+		.vista-previa { width:min(900px,calc(100% - 32px)); height:min(85vh,800px); padding:0; border:0; border-radius:10px; overflow:hidden; }
+		.vista-previa::backdrop { background:rgba(16,31,45,.72); }
+		.vista-previa-cabecera { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; background:var(--azul); color:#fff; }
+		.vista-previa-cabecera h2 { margin:0; font-size:1rem; }
+		.cerrar-vista-previa { padding:5px 10px; border:1px solid rgba(255,255,255,.7); border-radius:5px; background:transparent; color:#fff; font:inherit; cursor:pointer; }
+		.vista-previa iframe { display:block; width:100%; height:calc(100% - 44px); border:0; }
 		@media (max-width:560px) {
 			.contenedor { padding:6px 8px 12px; }
 			.recurso { grid-template-columns:1fr; gap:10px; padding:11px; }
-			.descargar { width:100%; }
+			.acciones { width:100%; }
+			.acciones a, .acciones button { flex:1; }
 		}
 	</style>
 </head>
@@ -30,22 +40,38 @@
 	<main class="contenedor">
 		<div class="lista">
 				<article class="recurso">
-					<div class="nombre"><strong>Ruta Formativa</strong><span>Archivo PDF</span></div>
-					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Ruta%20Formativa.pdf" download>Descargar</a>
-				</article>
-				<article class="recurso">
-					<div class="nombre"><strong>Ruta Formativa</strong><span>Archivo PPT</span></div>
-					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Ruta%20Formativa.pptx" download>Descargar</a>
-				</article>
-				<article class="recurso">
-					<div class="nombre"><strong>Mapa visual del curso</strong><span>Archivo PNG</span></div>
-					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Ruta_formativa_de_salud_mental.png" download>Descargar</a>
-				</article>
-				<article class="recurso">
-					<div class="nombre"><strong>Ruta Formativa en Salud Mental – MINEDUC</strong><span>Archivo PPT</span></div>
-					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/ruta_formativa_salud_mental_mineduc.pptx" download>Descargar</a>
+					<div class="nombre"><strong>RUTA DE APRENDIZAJE PDS 2026</strong><span>Documento de la ruta de aprendizaje PDS 2026</span></div>
+					<div class="acciones">
+						<button class="previsualizar" type="button" data-pdf="recursos%20ruta%20de%20aprendizaje/RUTA%20DE%20APRENDIZAJE%20PDS%202026.pdf">Previsualizar</button>
+						<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/RUTA%20DE%20APRENDIZAJE%20PDS%202026.pdf" download>Descargar</a>
+					</div>
 				</article>
 		</div>
 	</main>
+	<dialog class="vista-previa" aria-labelledby="titulo-vista-previa">
+		<div class="vista-previa-cabecera">
+			<h2 id="titulo-vista-previa">RUTA DE APRENDIZAJE PDS 2026</h2>
+			<button class="cerrar-vista-previa" type="button">Cerrar</button>
+		</div>
+		<iframe title="Previsualización de RUTA DE APRENDIZAJE PDS 2026"></iframe>
+	</dialog>
+	<script>
+		const vistaPrevia = document.querySelector(".vista-previa");
+		const documentoPrevisualizado = vistaPrevia.querySelector("iframe");
+
+		document.querySelector(".previsualizar").addEventListener("click", (evento) => {
+			documentoPrevisualizado.src = evento.currentTarget.dataset.pdf;
+			vistaPrevia.showModal();
+		});
+
+		vistaPrevia.querySelector(".cerrar-vista-previa").addEventListener("click", () => {
+			vistaPrevia.close();
+			documentoPrevisualizado.src = "";
+		});
+
+		vistaPrevia.addEventListener("close", () => {
+			documentoPrevisualizado.src = "";
+		});
+	</script>
 </body>
 </html>
