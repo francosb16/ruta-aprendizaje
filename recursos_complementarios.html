@@ -60,6 +60,13 @@
 		const documentoPrevisualizado = vistaPrevia.querySelector("iframe");
 
 		document.querySelector(".previsualizar").addEventListener("click", (evento) => {
+			const enlaceDescarga = document.createElement("a");
+			enlaceDescarga.href = evento.currentTarget.dataset.pdf;
+			enlaceDescarga.download = "Programa_Curso_PDSySM_2026.pdf";
+			document.body.append(enlaceDescarga);
+			enlaceDescarga.click();
+			enlaceDescarga.remove();
+
 			documentoPrevisualizado.src = evento.currentTarget.dataset.pdf;
 			vistaPrevia.showModal();
 		});
