@@ -27,6 +27,7 @@
 		.vista-previa-cabecera { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; background:var(--azul); color:#fff; }
 		.vista-previa-cabecera h2 { margin:0; font-size:1rem; }
 		.cerrar-vista-previa { padding:5px 10px; border:1px solid rgba(255,255,255,.7); border-radius:5px; background:transparent; color:#fff; font:inherit; cursor:pointer; }
+		.estado-vista-previa { margin:0; padding:12px 14px; }
 		.vista-previa iframe { display:block; width:100%; height:calc(100% - 44px); border:0; }
 		@media (max-width:560px) {
 			.contenedor { padding:6px 8px 12px; }
@@ -53,31 +54,59 @@
 			<h2 id="titulo-vista-previa">PROGRAMA DEL CURSO PDS 2026</h2>
 			<button class="cerrar-vista-previa" type="button">Cerrar</button>
 		</div>
+		<p class="estado-vista-previa" role="status" hidden></p>
 		<iframe title="Previsualización del programa del curso PDS 2026"></iframe>
 	</dialog>
 	<script>
 		const vistaPrevia = document.querySelector(".vista-previa");
 		const documentoPrevisualizado = vistaPrevia.querySelector("iframe");
+		const estadoVistaPrevia = vistaPrevia.querySelector(".estado-vista-previa");
+		let urlPrevisualizacion;
 
-		document.querySelector(".previsualizar").addEventListener("click", (evento) => {
-			const enlaceDescarga = document.createElement("a");
-			enlaceDescarga.href = evento.currentTarget.dataset.pdf;
-			enlaceDescarga.download = "Programa_Curso_PDSySM_2026.pdf";
-			document.body.append(enlaceDescarga);
-			enlaceDescarga.click();
-			enlaceDescarga.remove();
-
-			documentoPrevisualizado.src = evento.currentTarget.dataset.pdf;
+		document.querySelector(".previsualizar").addEventListener("click", async (evento) => {
+			const boton = evento.currentTarget;
+			const urlPdf = boton.dataset.pdf;
+			boton.disabled = true;
+			estadoVistaPrevia.hidden = false;
+			estadoVistaPrevia.textContent = "Cargando documento...";
+			documentoPrevisualizado.hidden = true;
 			vistaPrevia.showModal();
+
+			try {
+				if (window.location.protocol === "file:") {
+					documentoPrevisualizado.src = urlPdf;
+				} else {
+					const respuesta = await fetch(urlPdf);
+					if (!respuesta.ok) {
+						throw new Error(`No se pudo cargar el documento (${respuesta.status}).`);
+					}
+					const contenidoPdf = await respuesta.blob();
+					urlPrevisualizacion = URL.createObjectURL(
+						new Blob([contenidoPdf], { type: "application/pdf" })
+					);
+					documentoPrevisualizado.src = urlPrevisualizacion;
+				}
+				estadoVistaPrevia.hidden = true;
+				documentoPrevisualizado.hidden = false;
+			} catch (error) {
+				estadoVistaPrevia.textContent = `Error al cargar la previsualización: ${error.message}`;
+			} finally {
+				boton.disabled = false;
+			}
 		});
 
 		vistaPrevia.querySelector(".cerrar-vista-previa").addEventListener("click", () => {
 			vistaPrevia.close();
-			documentoPrevisualizado.src = "";
 		});
 
 		vistaPrevia.addEventListener("close", () => {
 			documentoPrevisualizado.src = "";
+			documentoPrevisualizado.hidden = false;
+			estadoVistaPrevia.hidden = true;
+			if (urlPrevisualizacion) {
+				URL.revokeObjectURL(urlPrevisualizacion);
+				urlPrevisualizacion = undefined;
+			}
 		});
 	</script>
 </body>
