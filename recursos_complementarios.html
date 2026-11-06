@@ -10,7 +10,7 @@
 		body { margin:0; background:#f4f7f9; color:var(--texto); font-family:Arial,Helvetica,sans-serif; line-height:1.45; }
 		.contenedor { width:100%; max-width:840px; margin:0 auto; padding:8px 10px 14px; }
 		.lista { display:grid; gap:8px; }
-		.recurso { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:13px; padding:13px 15px; border:1px solid var(--borde); border-left:4px solid var(--turquesa); border-radius:9px; background:#fff; box-shadow:0 4px 14px rgba(23,50,77,.07); }
+		.recurso { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:13px; padding:13px 15px; border:1px solid var(--borde); border-left:4px solid var(--turquesa); border-radius:9px; background:#fff; }
 		.recurso:nth-child(2) { border-left-color:var(--amarillo); }
 		.recurso:nth-child(3) { border-left-color:var(--coral); }
 		.recurso:nth-child(4) { border-left-color:var(--azul); }
@@ -18,7 +18,7 @@
 		.nombre strong { display:block; overflow-wrap:anywhere; color:var(--azul); font-size:.94rem; }
 		.nombre span { display:block; margin-top:2px; color:#687681; font-size:.78rem; }
 		.acciones { display:flex; align-items:center; gap:8px; }
-		.acciones a, .acciones button { display:inline-flex; align-items:center; justify-content:center; min-width:104px; padding:9px 12px; border:0; border-radius:7px; color:#fff; font-family:inherit; font-size:.8rem; font-weight:bold; text-decoration:none; cursor:pointer; }
+		.acciones a, .acciones button { display:inline-flex; align-items:center; justify-content:center; min-width:104px; padding:9px 12px; border:0; border-radius:7px; color:#fff; font-family:inherit; font-size:.82rem; font-weight:700; text-decoration:none; cursor:pointer; }
 		.previsualizar { background:var(--azul); }
 		.descargar { background:var(--turquesa); }
 		.acciones a:hover, .acciones a:focus-visible, .acciones button:hover, .acciones button:focus-visible { filter:brightness(.88); outline:3px solid rgba(53,184,176,.3); outline-offset:2px; }
@@ -40,13 +40,13 @@
 <body>
 	<main class="contenedor">
 		<div class="lista">
-				<article class="recurso">
-					<div class="nombre"><strong>PROGRAMA DEL CURSO PDS 2026</strong><span>Documento del programa del curso PDS 2026</span></div>
-					<div class="acciones">
-						<button class="previsualizar" type="button" data-pdf="recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf">Previsualizar</button>
-						<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf" download>Descargar</a>
-					</div>
-				</article>
+			<article class="recurso">
+				<div class="nombre"><strong>PROGRAMA DEL CURSO PDS 2026</strong><span>Documento del programa del curso PDS 2026</span></div>
+				<div class="acciones">
+					<button class="previsualizar" type="button" data-pdf="recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf">Previsualizar</button>
+					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf" download>Descargar</a>
+				</div>
+			</article>
 		</div>
 	</main>
 	<dialog class="vista-previa" aria-labelledby="titulo-vista-previa">
@@ -61,38 +61,12 @@
 		const vistaPrevia = document.querySelector(".vista-previa");
 		const documentoPrevisualizado = vistaPrevia.querySelector("iframe");
 		const estadoVistaPrevia = vistaPrevia.querySelector(".estado-vista-previa");
-		let urlPrevisualizacion;
 
-		document.querySelector(".previsualizar").addEventListener("click", async (evento) => {
-			const boton = evento.currentTarget;
-			const urlPdf = boton.dataset.pdf;
-			boton.disabled = true;
-			estadoVistaPrevia.hidden = false;
-			estadoVistaPrevia.textContent = "Cargando documento...";
-			documentoPrevisualizado.hidden = true;
+		document.querySelector(".previsualizar").addEventListener("click", (evento) => {
+			documentoPrevisualizado.src = evento.currentTarget.dataset.pdf;
+			estadoVistaPrevia.hidden = true;
+			documentoPrevisualizado.hidden = false;
 			vistaPrevia.showModal();
-
-			try {
-				if (window.location.protocol === "file:") {
-					documentoPrevisualizado.src = urlPdf;
-				} else {
-					const respuesta = await fetch(urlPdf);
-					if (!respuesta.ok) {
-						throw new Error(`No se pudo cargar el documento (${respuesta.status}).`);
-					}
-					const contenidoPdf = await respuesta.blob();
-					urlPrevisualizacion = URL.createObjectURL(
-						new Blob([contenidoPdf], { type: "application/pdf" })
-					);
-					documentoPrevisualizado.src = urlPrevisualizacion;
-				}
-				estadoVistaPrevia.hidden = true;
-				documentoPrevisualizado.hidden = false;
-			} catch (error) {
-				estadoVistaPrevia.textContent = `Error al cargar la previsualización: ${error.message}`;
-			} finally {
-				boton.disabled = false;
-			}
 		});
 
 		vistaPrevia.querySelector(".cerrar-vista-previa").addEventListener("click", () => {
@@ -100,13 +74,7 @@
 		});
 
 		vistaPrevia.addEventListener("close", () => {
-			documentoPrevisualizado.src = "";
-			documentoPrevisualizado.hidden = false;
-			estadoVistaPrevia.hidden = true;
-			if (urlPrevisualizacion) {
-				URL.revokeObjectURL(urlPrevisualizacion);
-				urlPrevisualizacion = undefined;
-			}
+			documentoPrevisualizado.src = "about:blank";
 		});
 	</script>
 </body>
