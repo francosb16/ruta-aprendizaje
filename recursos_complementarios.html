@@ -27,8 +27,9 @@
 		.vista-previa-cabecera { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; background:var(--azul); color:#fff; }
 		.vista-previa-cabecera h2 { margin:0; font-size:1rem; }
 		.cerrar-vista-previa { padding:5px 10px; border:1px solid rgba(255,255,255,.7); border-radius:5px; background:transparent; color:#fff; font:inherit; cursor:pointer; }
-		.estado-vista-previa { margin:0; padding:12px 14px; }
-		.vista-previa iframe { display:block; width:100%; height:calc(100% - 44px); border:0; }
+		.estado-vista-previa { margin:0; padding:12px 14px; color:#263746; background:#f4f7f9; }
+		.pdf-contenedor { display:flex; align-items:flex-start; justify-content:center; width:100%; height:calc(100% - 44px); padding:12px; background:#f4f7f9; overflow:auto; }
+		.pdf-canvas { display:block; max-width:100%; box-shadow:0 2px 12px rgba(23,50,77,0.15); background:#fff; }
 		@media (max-width:560px) {
 			.contenedor { padding:6px 8px 12px; }
 			.recurso { grid-template-columns:1fr; gap:10px; padding:11px; }
@@ -43,8 +44,8 @@
 			<article class="recurso">
 				<div class="nombre"><strong>PROGRAMA DEL CURSO PDS 2026</strong><span>Documento del programa del curso PDS 2026</span></div>
 				<div class="acciones">
-					<button class="previsualizar" type="button" data-pdf="recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf">Previsualizar</button>
-					<a class="descargar" href="recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf" download>Descargar</a>
+					<button class="previsualizar" type="button" data-pdf="https://raw.githubusercontent.com/francosb16/ruta-aprendizaje/main/recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf">Previsualizar</button>
+					<a class="descargar" href="https://raw.githubusercontent.com/francosb16/ruta-aprendizaje/main/recursos%20ruta%20de%20aprendizaje/Programa_Curso_PDSySM_2026.pdf" download>Descargar</a>
 				</div>
 			</article>
 		</div>
@@ -55,18 +56,55 @@
 			<button class="cerrar-vista-previa" type="button">Cerrar</button>
 		</div>
 		<p class="estado-vista-previa" role="status" hidden></p>
-		<iframe title="Previsualización del programa del curso PDS 2026"></iframe>
+		<div class="pdf-contenedor">
+			<canvas class="pdf-canvas" aria-label="Previsualización del programa del curso"></canvas>
+		</div>
 	</dialog>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 	<script>
 		const vistaPrevia = document.querySelector(".vista-previa");
-		const documentoPrevisualizado = vistaPrevia.querySelector("iframe");
+		const pdfCanvas = vistaPrevia.querySelector(".pdf-canvas");
 		const estadoVistaPrevia = vistaPrevia.querySelector(".estado-vista-previa");
+		const context = pdfCanvas.getContext("2d");
+		const pdfjsLibInstance = window.pdfjsLib;
+		let pdfDoc = null;
 
-		document.querySelector(".previsualizar").addEventListener("click", (evento) => {
-			documentoPrevisualizado.src = evento.currentTarget.dataset.pdf;
-			estadoVistaPrevia.hidden = true;
-			documentoPrevisualizado.hidden = false;
+		pdfjsLibInstance.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+		async function renderPdf(urlPdf) {
+			estadoVistaPrevia.hidden = false;
+			estadoVistaPrevia.textContent = "Cargando documento...";
+			pdfCanvas.style.display = "none";
+
+			try {
+				const respuesta = await fetch(urlPdf);
+				if (!respuesta.ok) {
+					throw new Error(`No se pudo cargar el documento (${respuesta.status}).`);
+				}
+
+				const arrayBuffer = await respuesta.arrayBuffer();
+				pdfDoc = await pdfjsLibInstance.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+
+				const pagina = await pdfDoc.getPage(1);
+				const escala = 1.25;
+				const vista = pagina.getViewport({ scale: escala });
+				pdfCanvas.width = vista.width;
+				pdfCanvas.height = vista.height;
+				const renderContext = { canvasContext: context, viewport: vista };
+				await pagina.render(renderContext).promise;
+
+				pdfCanvas.style.display = "block";
+				estadoVistaPrevia.hidden = true;
+			} catch (error) {
+				estadoVistaPrevia.textContent = `Error al cargar la previsualización: ${error.message}`;
+				pdfCanvas.style.display = "none";
+			}
+		}
+
+		document.querySelector(".previsualizar").addEventListener("click", async (evento) => {
+			const urlPdf = evento.currentTarget.dataset.pdf;
 			vistaPrevia.showModal();
+			await renderPdf(urlPdf);
 		});
 
 		vistaPrevia.querySelector(".cerrar-vista-previa").addEventListener("click", () => {
@@ -74,7 +112,13 @@
 		});
 
 		vistaPrevia.addEventListener("close", () => {
-			documentoPrevisualizado.src = "about:blank";
+			pdfDoc = null;
+			context.clearRect(0, 0, pdfCanvas.width, pdfCanvas.height);
+			pdfCanvas.width = 0;
+			pdfCanvas.height = 0;
+			pdfCanvas.style.display = "none";
+			estadoVistaPrevia.hidden = true;
+			estadoVistaPrevia.textContent = "";
 		});
 	</script>
 </body>
